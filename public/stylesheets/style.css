@@ -1,8 +1,44 @@
+/*
+  Material Color Palette
+  Primary: Blue
+  Accent: Amber
+*/
+
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 0;
 }
 
 a {
-  color: #00B7FF;
+  color: #FFD740;
+}
+
+#title {
+  padding: 5%;
+  background-color: #2196F3;
+  height: 64px;
+  font-size: 56px;
+  color: #ffffff;
+}
+
+#description {
+  padding-left: 1em;
+  font-size: 14px;
+  opacity: .7;
+}
+
+input.underline {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  border-bottom: dashed 1px;
+  width: 128px;
+}
+
+.review {
+  font-size: 16px;
+}
+
+.accent {
+  background-color: #FFD740;
 }
