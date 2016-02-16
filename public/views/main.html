@@ -1,0 +1,18 @@
+<div>
+    BEER NAME<input type="text"/><br>
+    BREWER<input type="text"><br>
+    PRICE<input type="number" step=".01"><br>
+    SAMPLED<input type="date"><br>
+    RATING<input type="range" min="0" max="5" ng-model="beerRating" ng-init="beerRating=0">{{beerRating}}<br>
+    NOTES:<br>
+    <textarea></textarea><br>
+    <h3>STATS</h3>
+    ABV<input type="number" step=".01"><br>
+    IBU<input type="number"><br>
+    SERVING TYPE<input type="radio" name="serveType" value="draft">Draft
+                <input type="radio" name="serveType" value="cask">Cask
+                <input type="radio" name="serveType" value="bottle">Bottle
+                <input type="radio" name="serveType" value="can">Can
+                <input type="radio" name="serveType" value="growler">Growler
+
+</div>
