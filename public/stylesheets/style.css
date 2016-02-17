@@ -13,12 +13,20 @@ a {
   color: #FFD740;
 }
 
-#title {
-  padding: 5%;
+#titleBar {
+  position: fixed;
   background-color: #2196F3;
-  height: 64px;
-  font-size: 56px;
+  height: 128px;
+  width: 100%;
+  -webkit-box-shadow: 0 2px 2px #b5b5b5;
+  -moz-box-shadow: 0 2px 2px #b5b5b5;
+  box-shadow: 0 2px 2px #b5b5b5;
   color: #ffffff;
+  font-size: 56px;
+}
+
+#title {
+  margin: 10px 0;
 }
 
 #description {
@@ -36,6 +44,7 @@ input.underline {
 }
 
 .review {
+  padding-top: 128px;
   font-size: 16px;
 }
 
