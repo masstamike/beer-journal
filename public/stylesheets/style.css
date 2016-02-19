@@ -57,7 +57,7 @@ input.underline {
 .reviewContainer {
   position: relative;
   background-color: white;
-  float:right;
+  float:left;
   margin: 136px 16px 48px;
   padding: 8px;
   font-size: 16px;
@@ -139,6 +139,7 @@ div.servingType {
 }
 
 .flavorWheel {
+  float: right;
   margin-top: 16px;
   width: 50%;
   height: 176px;
@@ -156,4 +157,9 @@ div.servingType {
   float:right;
   margin-bottom: -32px;
   margin-right: 16px;
+}
+
+.hoverButton:hover {
+  bottom: 4px;
+  box-shadow: 0 14px 10px rgba(0,0,0,0.3);
 }
