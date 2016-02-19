@@ -1,20 +1,34 @@
-<div class="review">
-    BEER NAME<input class="underline" type="text"/><br>
-    BREWER<input class="underline" type="text"><br>
-    PRICE<input type="number" step=".01"><br>
-    SAMPLED<input type="date"><br>
-    RATING<input type="range" min="0" max="5" ng-model="beerRating" ng-init="beerRating=0">{{beerRating}}<br>
-    NOTES:<br>
-    <textarea></textarea><br>
-    <h3>STATS</h3>
-    ABV<input type="number" step=".01"><br>
-    IBU<input type="number"><br>
-    SERVING TYPE<input type="radio" name="serveType" value="draft">Draft
-                <input type="radio" name="serveType" value="cask">Cask
-                <input type="radio" name="serveType" value="bottle">Bottle
-                <input type="radio" name="serveType" value="can">Can
+<div class="reviewContainer">
+    <div class="review">
+        BEER NAME<input id="beerName" class="underline" type="text"/><br>
+        BREWER<input class="underline" type="text"> PRICE<input type="number" step=".01"><br>
+        SAMPLED<input type="date">
+        RATING
+        <div class="rating">
+            <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+        </div><br/>
+        NOTES:<br/>
+        <textarea placeholder="Describe the beer in detail..."></textarea><br>
+        <div class="statsAndServing">
+            <div class="stats">
+                <div class="title">STATS</div>
+                <div class="statsLabels">ABV<br/>IBU</div>
+                <div class="statsInput">
+                    <input type="number" step=".01"><br>
+                    <input type="number"><br>
+                </div>
+            </div>
+            <div class="servingType">
+                <div class="title">SERVING TYPE</div>
+                <input type="radio" name="serveType" value="draft">Draft<br/>
+                <input type="radio" name="serveType" value="cask">Cask<br/>
+                <input type="radio" name="serveType" value="bottle">Bottle<br/>
+                <input type="radio" name="serveType" value="can">Can<br/>
                 <input type="radio" name="serveType" value="growler">Growler
-    <br>
+                <br>
+            </div>
+            <!--div class="flavorWheel"></div-->
+        </div>
+    </div>
     <div class="hoverButton"/>
-
 </div>

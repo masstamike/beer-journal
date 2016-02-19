@@ -14,6 +14,15 @@ a {
   color: #FFD740;
 }
 
+textarea {
+  width: 90%;
+  height: 128px;
+  border: 0;
+  margin: 0 4%;
+  resize: none;
+  box-shadow: 2px 4px 8px #e5e5e5;
+}
+
 #titleBar {
   position: fixed;
   background-color: #2196F3;
@@ -24,6 +33,7 @@ a {
   box-shadow: 0 2px 2px #b5b5b5;
   color: #ffffff;
   font-size: 56px;
+  z-index: 500;
 }
 
 #title {
@@ -44,22 +54,104 @@ input.underline {
   width: 128px;
 }
 
-.review {
+.reviewContainer {
+  position: relative;
   background-color: white;
   float:right;
-  margin-top: 136px;
-  margin-right: 16px;
+  margin: 136px 16px 48px;
+  padding: 8px;
   font-size: 16px;
   box-shadow: 0 1px 4px rgba(0,0,0,.17);
+  min-width: 375px;
+}
+
+.review {
+}
+
+#beerName {
+  width: 60%;
+  margin-left: 32px;
+}
+
+.rating {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  float: right;
+  font-size: large;
+}
+
+.rating > span {
+  display: inline-block;
+  position: relative;
+  width: 1.1em;
+}
+
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+  content: "\2605";
+  position: absolute;
+  color: gold;
+}
+
+.statsAndServing {
+  margin-top: 16px;
+  float: left;
+}
+
+div.stats {
+  margin: 16px;
+  width: 100%;
+  border: 1px solid rgba(0,0,0,.17);
+  padding: 5%;
+  height: 64px;
+}
+
+div.stats > div.title {
+  background-color: #b5b5b5;
+  margin: 1px;
+  text-align: center;
+}
+
+div.servingType > div.title {
+  background-color: #b5b5b5;
+  margin: 1px;
+  text-align: center;
+}
+
+div.statsLabels {
+  float: left;
+}
+
+div.statsInput {
+  float: right;
+}
+
+div.statsInput > input {
+  margin: 1px;
+  width: 48px;
+}
+
+div.servingType {
+  margin: 16px;
+  width: 100%;
+  border: 1px solid rgba(0,0,0,.17);
+  padding: 5%;
+}
+
+.flavorWheel {
+  margin-top: 16px;
+  width: 50%;
+  height: 176px;
 }
 
 .hoverButton {
-  background-color: #18FFFF;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  background: #18FFFF url(../images/plus.png);
   border-radius: 50%;
   width: 64px;
   height: 64px;
-  color: white;
-  text-align: center;
   box-shadow: 0 6px 10px rgba(0,0,0,0.3);
   float:right;
   margin-bottom: -32px;
