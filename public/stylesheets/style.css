@@ -62,7 +62,7 @@ input.underline {
   padding: 8px;
   font-size: 16px;
   box-shadow: 0 1px 4px rgba(0,0,0,.17);
-  min-width: 375px;
+  min-width: 400px;
 }
 
 .review {
@@ -71,6 +71,26 @@ input.underline {
 #beerName {
   width: 60%;
   margin-left: 32px;
+}
+
+.reviewRow {
+  maring: 16px 0;
+}
+
+.brewer {
+  float: left;
+}
+
+.price {
+  float: right;
+}
+
+.sampleDate {
+  float: left;
+}
+
+.ratingSection {
+  float: right;
 }
 
 .rating {
@@ -107,13 +127,13 @@ div.stats {
 }
 
 div.stats > div.title {
-  background-color: #b5b5b5;
+  background-color: #64B5F6;
   margin: 1px;
   text-align: center;
 }
 
 div.servingType > div.title {
-  background-color: #b5b5b5;
+  background-color: #64B5F6;
   margin: 1px;
   text-align: center;
 }
@@ -161,5 +181,5 @@ div.servingType {
 
 .hoverButton:hover {
   bottom: 4px;
-  box-shadow: 0 14px 10px rgba(0,0,0,0.3);
+  box-shadow: 0 12px 10px rgba(0,0,0,0.3);
 }

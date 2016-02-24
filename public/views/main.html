@@ -1,12 +1,19 @@
 <div class="reviewContainer">
     <div class="review">
         BEER NAME<input id="beerName" class="underline" type="text"/><br>
-        BREWER<input class="underline" type="text"> PRICE<input type="number" step=".01"><br>
-        SAMPLED<input type="date">
-        RATING
-        <div class="rating">
-            <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-        </div><br/>
+        <div class="reviewRow">
+            <div class="brewer">BREWER<input class="underline" type="text"></div>
+            <div class="price">PRICE<input type="number" step=".01"></div>
+        </div>
+        <div class="reviewRow">
+            <div class="sampleDate">SAMPLED<input type="date"></div>
+            <div class="ratingSection">
+                RATING
+                <div class="rating">
+                    <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                </div>
+            </div>
+        </div>
         NOTES:<br/>
         <textarea placeholder="Describe the beer in detail..."></textarea><br>
         <div class="statsAndServing">
