@@ -1,16 +1,20 @@
 <div class="reviewContainer">
     <div class="review">
-        BEER NAME<input id="beerName" class="underline" type="text"/><br>
+        BEER NAME<input id="beerName" class="underline" type="text" ng-model="beerName"/><br>
         <div class="reviewRow">
-            <div class="brewer">BREWER<input class="underline" type="text"></div>
-            <div class="price">PRICE<input type="number" step=".01"></div>
+            <div class="brewer">BREWER<input class="underline" type="text" ng-model="brewer"></div>
+            <div class="price">PRICE<input type="number" step=".01" ng-model="price"></div>
         </div>
         <div class="reviewRow">
-            <div class="sampleDate">SAMPLED<input type="date"></div>
+            <div class="sampleDate">SAMPLED<input type="date" ng-model="sampleDate"></div>
             <div class="ratingSection">
                 RATING
                 <div class="rating">
-                    <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                    <span ng-click="rating = 5;" ng-class="ratingGold(5);">☆</span>
+                    <span ng-click="rating = 4;" ng-class="ratingGold(4);">☆</span>
+                    <span ng-click="rating = 3;" ng-class="ratingGold(3);">☆</span>
+                    <span ng-click="rating = 2;" ng-class="ratingGold(2);">☆</span>
+                    <span ng-click="rating = 1;" ng-class="ratingGold(1);">☆</span>
                 </div>
             </div>
         </div>
@@ -35,7 +39,23 @@
                 <br>
             </div>
         </div>
-        <div class="flavorWheel"></div>
+        <div class="flavorWheel">
+            <svg width="180" height="180" style="border-radius: 100%;">
+                <circle cx="90" cy="90" r="90" stroke="black" stroke-width="6" fill="transparent"></circle>
+                <circle cx="90" cy="90" r="72" stroke="black" stroke-width="1" fill="transparent"></circle>
+                <circle cx="90" cy="90" r="54" stroke="black" stroke-width="1" fill="transparent"></circle>
+                <circle cx="90" cy="90" r="36" stroke="black" stroke-width="1" fill="transparent"></circle>
+                <circle cx="90" cy="90" r="18" stroke="black" stroke-width="1" fill="transparent"></circle>
+                <line x1="0" y1="90" x2="180" y2="90" stroke="#1565C0" stroke-width="1"></line>
+                <line x1="90" y1="0" x2="90" y2="180" stroke="#1565C0" stroke-width="1"></line>
+                <line x1="26.3603896932" y1="26.3603896932" x2="153.639610307" y2="153.639610307" stroke="#1565C0" stroke-width="1"></line>
+                <line x1="26.3603896932" y1="153.639610307" x2="153.639610307" y2="26.3603896932" stroke="#1565C0" stroke-width="1"></line>
+                <line x1="55.5584910871" y1="6.85084207398" x2="124.441508913" y2="173.149157926" stroke="#1565C0" stroke-width="1"></line>
+                <line x1="124.441508913" y1="6.85084207398" x2="55.5584910871" y2="173.149157926" stroke="#1565C0" stroke-width="1"></line>
+                <line x1="6.85084207398" y1="124.441508913" x2="173.149157926" y2="55.5584910871" stroke="#1565C0" stroke-width="1"></line>
+                <line x1="6.85084207398" y1="55.5584910871" x2="173.149157926" y2="124.441508913" stroke="#1565C0" stroke-width="1"></line>
+            </svg>
+        </div>
     </div>
     <div class="hoverButton"/>
 </div>

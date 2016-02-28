@@ -113,7 +113,15 @@ input.underline {
   color: gold;
 }
 
+.rating > span.gold:before,
+.rating > span.gold ~ span:before {
+  content: "\2605";
+  position: absolute;
+  color: gold;
+}
+
 .statsAndServing {
+  width: 120px;
   margin-top: 16px;
   float: left;
 }
@@ -160,7 +168,7 @@ div.servingType {
 
 .flavorWheel {
   float: right;
-  margin-top: 16px;
+  margin-top: 64px;
   width: 50%;
   height: 176px;
 }
