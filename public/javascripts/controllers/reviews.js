@@ -5,16 +5,17 @@
 
 var app = angular.module('beerJournalApp');
 app.controller('ReviewsCtrl', function($scope, $http) {
-    $scope.beerName = '';
-    $scope.brewer = '';
-    $scope.price = 0;
-    $scope.sampleDate = new Date();
-    $scope.rating = 0;
-    $scope.notes = '';
-    $scope.abv = 0;
-    $scope.ibu = 0;
-    $scope.servingType = '';
-    $scope.flavorWheel = {
+    var review = $scope.review = {};
+    review.beerName = '';
+    review.brewer = '';
+    review.price = 0;
+    review.sampleDate = new Date();
+    review.rating = 0;
+    review.notes = '';
+    review.abv = 0;
+    review.ibu = 0;
+    review.servingType = '';
+    review.flavorWheel = {
         Alcohol: 0,
         Linger: 0,
         Body: 0,
@@ -34,8 +35,17 @@ app.controller('ReviewsCtrl', function($scope, $http) {
     };
 
     $scope.ratingGold = function (place) {
-        if (place <= $scope.rating) {
+        if (place <= $scope.review.rating) {
             return "gold";
         }
     };
+
+    $scope.submitReview = function () {
+        $http.post('/reviews/new', $scope.review)
+            .then(function () {
+                console.log("Successfully uploaded review!");
+            }, function (error) {
+                console.log("Error: " + error);
+            });
+    }
 });
