@@ -10,11 +10,28 @@ app.controller('ReviewsCtrl', function($scope, $http) {
     $scope.price = 0;
     $scope.sampleDate = new Date();
     $scope.rating = 0;
-    $scope.notes;
-    $scope.abv;
-    $scope.ibu;
-    $scope.servingType;
-    $scope.flavorWheel = {};
+    $scope.notes = '';
+    $scope.abv = 0;
+    $scope.ibu = 0;
+    $scope.servingType = '';
+    $scope.flavorWheel = {
+        Alcohol: 0,
+        Linger: 0,
+        Body: 0,
+        Dry: 0,
+        Bitter: 0,
+        Sour: 0,
+        Sweet: 0,
+        Burnt: 0,
+        Toffee: 0,
+        Malty: 0,
+        Herbal: 0,
+        Spicy: 0,
+        Floral: 0,
+        Hoppy: 0,
+        Citrus: 0,
+        DarkFruit: 0
+    };
 
     $scope.ratingGold = function (place) {
         if (place <= $scope.rating) {
