@@ -41,7 +41,7 @@ app.controller('ReviewsCtrl', function($scope, $http) {
     };
 
     $scope.submitReview = function () {
-        $http.post('/reviews/new', $scope.review)
+        $http.post('reviews/new', $scope.review)
             .then(function () {
                 console.log("Successfully uploaded review!");
             }, function (error) {
