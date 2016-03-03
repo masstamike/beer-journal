@@ -6,7 +6,7 @@ var Review = require ('../models/review.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Beer Journal', description: 'A collaborative place for beer enthusiasts.' });
+  res.render('index', { title: 'The Beer Journal', description: 'A collaborative place for beer enthusiasts.' });
 });
 
 router.post('/reviews/new', function (req, res) {
