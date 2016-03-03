@@ -5,6 +5,10 @@
 
 var app = angular.module('beerJournalApp');
 app.controller('ReviewsCtrl', function($scope, $http) {
+    var titleBar = document.getElementById('titleBar');
+    var title = document.getElementById('title');
+    var desc = document.getElementById('description');
+
     var review = $scope.review = {};
     review.beerName = '';
     review.brewer = '';
@@ -15,6 +19,7 @@ app.controller('ReviewsCtrl', function($scope, $http) {
     review.abv = 0;
     review.ibu = 0;
     review.servingType = '';
+
     review.flavorWheel = {
         Alcohol: 0,
         Linger: 0,
@@ -33,7 +38,6 @@ app.controller('ReviewsCtrl', function($scope, $http) {
         Citrus: 0,
         DarkFruit: 0
     };
-
     $scope.ratingGold = function (place) {
         if (place <= $scope.review.rating) {
             return "gold";
@@ -47,5 +51,45 @@ app.controller('ReviewsCtrl', function($scope, $http) {
             }, function (error) {
                 console.log("Error: " + error);
             });
-    }
+    };
+
+    var titleSize = function (maxSize, offset) {
+
+        if (offset <= 64) {
+            return (maxSize - offset) + "px";
+        } else {
+            return "64px";
+        }
+    };
+
+    window.onscroll = function () {
+
+        var coord = window.pageYOffset;
+
+        titleBar.style.height = titleSize(128, coord);
+
+        if (coord >= 32) {
+            if (coord >= 56) {
+                title.style.margin = "0 10px";
+                title.style.fontSize = "48px";
+            } else {
+                title.style.margin = "10px";
+                title.style.fontSize = "56px";
+            }
+            if (document.getElementById('description') != undefined) {
+                titleBar.removeChild(desc);
+            }
+        } else {
+            titleBar.appendChild(desc);
+            title.style.margin = "10px";
+            title.style.fontSize = "56px";
+        }
+
+        // any $scope variable updates
+        $scope.$digest();
+    };
+
+    $scope.$on('$destroy', function() {
+        window.onscroll = null;
+    });
 });
