@@ -1,54 +1,61 @@
-<div class="reviewContainer">
-    <div class="review">
-        <div class="reviewRow">
-            BEER NAME<input id="beerName" class="underline" type="text" ng-model="review.beerName"/>
-        </div>
-        <div class="reviewRow">
-            <div class="brewer">BREWER<input class="underline" type="text" ng-model="review.brewer"></div>
-            <div class="price">PRICE<input type="number" step="any" ng-model="review.price"></div>
-        </div>
-        <div class="reviewRow">
-            <div class="sampleDate">SAMPLED<input type="date" ng-model="review.sampleDate"></div>
-            <div class="ratingSection">
-                RATING
-                <div class="rating">
-                    <span ng-click="review.rating = 5;" ng-class="ratingGold(5);">☆</span>
-                    <span ng-click="review.rating = 4;" ng-class="ratingGold(4);">☆</span>
-                    <span ng-click="review.rating = 3;" ng-class="ratingGold(3);">☆</span>
-                    <span ng-click="review.rating = 2;" ng-class="ratingGold(2);">☆</span>
-                    <span ng-click="review.rating = 1;" ng-class="ratingGold(1);">☆</span>
+<div class="sidebar">
+    <div class="menuItem">Home</div>
+    <div class="menuItem">My Reviews</div>
+    <div class="menuItem">Community</div>
+</div>
+<div id="reviews">
+    <div id="activeReview" class="reviewContainer">
+        <div class="review">
+            <div class="reviewRow">
+                BEER NAME<input id="beerName" class="underline" type="text" ng-model="review.beerName"/>
+            </div>
+            <div class="reviewRow">
+                <div class="brewer">BREWER<input class="underline" type="text" ng-model="review.brewer"></div>
+                <div class="price">PRICE $<input type="number" step="any" ng-model="review.price"></div>
+            </div>
+            <div class="reviewRow">
+                <div class="sampleDate">SAMPLED<input type="date" ng-model="review.sampleDate"></div>
+                <div class="ratingSection">
+                    RATING
+                    <div class="rating">
+                        <span ng-click="review.rating = 5;" ng-class="ratingGold(5);">☆</span>
+                        <span ng-click="review.rating = 4;" ng-class="ratingGold(4);">☆</span>
+                        <span ng-click="review.rating = 3;" ng-class="ratingGold(3);">☆</span>
+                        <span ng-click="review.rating = 2;" ng-class="ratingGold(2);">☆</span>
+                        <span ng-click="review.rating = 1;" ng-class="ratingGold(1);">☆</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="reviewRow">
-            <div class="notes">NOTES:
+            <div class="reviewRow">
+                <div class="notes">NOTES:
                 <textarea ng-model="review.notes" placeholder="Describe the beer in detail...">
                 </textarea><br>
-            </div>
-        </div>
-        <div class="statsAndServing">
-            <div class="stats">
-                <div class="title">STATS</div>
-                <div class="statsLabels">ABV (%)<br/>IBU</div>
-                <div class="statsInput">
-                    <input ng-model="review.abv" type="number" step="any"><br>
-                    <input ng-model="review.ibu" type="number"><br>
                 </div>
             </div>
-            <div class="servingType">
-                <div class="title">SERVING TYPE
+            <div class="statsAndServing">
+                <div class="stats">
+                    <div class="title">STATS</div>
+                    <div class="statsLabels">ABV (%)<br/>IBU</div>
+                    <div class="statsInput">
+                        <input ng-model="review.abv" type="number" step="any"><br>
+                        <input ng-model="review.ibu" type="number"><br>
+                    </div>
                 </div>
-                <input type="radio" ng-model="review.servingType" name="serveType" value="draft">Draft<br/>
-                <input type="radio" ng-model="review.servingType" name="serveType" value="cask">Cask<br/>
-                <input type="radio" ng-model="review.servingType" name="serveType" value="bottle">Bottle<br/>
-                <input type="radio" ng-model="review.servingType" name="serveType" value="can">Can<br/>
-                <input type="radio" ng-model="review.servingType" name="serveType" value="growler">Growler
-                <br>
+                <div class="servingType">
+                    <div class="title">SERVING TYPE
+                    </div>
+                    <input type="radio" ng-model="review.servingType" name="serveType" value="draft">Draft<br/>
+                    <input type="radio" ng-model="review.servingType" name="serveType" value="cask">Cask<br/>
+                    <input type="radio" ng-model="review.servingType" name="serveType" value="bottle">Bottle<br/>
+                    <input type="radio" ng-model="review.servingType" name="serveType" value="can">Can<br/>
+                    <input type="radio" ng-model="review.servingType" name="serveType" value="growler">Growler
+                    <br>
+                </div>
             </div>
-        </div>
-        <div class="flavorWheel">
+            <div class="flavorWheel">
 
+            </div>
         </div>
+        <div id="submitButton" class="hoverButton" ng-click="submitReview();"/>
     </div>
-    <div class="hoverButton" ng-click="submitReview();"/>
 </div>

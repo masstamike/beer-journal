@@ -24,16 +24,20 @@ a {
 }
 
 #titleBar {
+  float: left;
   position: fixed;
   background-color: #2196F3;
   height: 128px;
   width: 100%;
-  -webkit-box-shadow: 0 2px 2px #b5b5b5;
-  -moz-box-shadow: 0 2px 2px #b5b5b5;
-  box-shadow: 0 2px 2px #b5b5b5;
   color: #ffffff;
   font-size: 56px;
   z-index: 500;
+}
+
+.shadow {
+  -webkit-box-shadow: 0 2px 2px #b5b5b5;
+  -moz-box-shadow: 0 2px 2px #b5b5b5;
+  box-shadow: 0 2px 2px #b5b5b5;
 }
 
 #title {
@@ -46,6 +50,11 @@ a {
   opacity: .7;
 }
 
+#contentContainer {
+  float: left;
+  margin-top: 128px;
+}
+
 input.underline {
   border: 0;
   outline: 0;
@@ -54,14 +63,42 @@ input.underline {
   width: 128px;
 }
 
+.sidebar {
+  position: absolute;
+  width: 256px;
+}
+
+.sidebar > .menuItem {
+  text-align: center;
+  width: 128px;
+  margin: 8px 0;
+  padding: 16px 0;
+  left: 0;
+  background-color: #e5e5e5;
+}
+
+#reviews {
+  margin-left: 256px;
+  float:left;
+}
+
 .reviewContainer {
   position: relative;
   background-color: white;
   float:left;
-  margin: 136px 16px 48px;
+  margin: 16px 4px 48px;
   padding: 8px;
   font-size: 16px;
   box-shadow: 0 1px 4px rgba(0,0,0,.17);
+}
+
+.fadeIn {
+  animation: fadeIn 2s;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
 }
 
 .review {
@@ -97,6 +134,8 @@ input {
 
 .price > input {
   width: 64px;
+  font-size: 16px;
+  margin-left: 0;
 }
 
 .sampleDate {

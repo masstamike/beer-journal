@@ -48,6 +48,15 @@ app.controller('ReviewsCtrl', function($scope, $http) {
         $http.post('reviews/new', $scope.review)
             .then(function () {
                 console.log("Successfully uploaded review!");
+                var reviewNode = document.getElementById('activeReview');
+                var completedReviewNode = reviewNode.cloneNode(true);
+                var reviewsNode = document.getElementById('reviews');
+                var firstCompletedNode = document.getElementsByClassName('fadeIn')[0];
+                var submitButton = completedReviewNode.getElementsByClassName('hoverButton')[0];
+                completedReviewNode.removeChild(submitButton);
+                completedReviewNode.id="";
+                completedReviewNode.classList.add("fadeIn");
+                reviewsNode.insertBefore(completedReviewNode, firstCompletedNode);
             }, function (error) {
                 console.log("Error: " + error);
             });
@@ -72,9 +81,11 @@ app.controller('ReviewsCtrl', function($scope, $http) {
             if (coord >= 56) {
                 title.style.margin = "0 10px";
                 title.style.fontSize = "48px";
+                titleBar.classList.add("shadow");
             } else {
                 title.style.margin = "10px";
                 title.style.fontSize = "56px";
+                titleBar.classList.remove("shadow");
             }
             if (document.getElementById('description') != undefined) {
                 titleBar.removeChild(desc);
@@ -83,6 +94,7 @@ app.controller('ReviewsCtrl', function($scope, $http) {
             titleBar.appendChild(desc);
             title.style.margin = "10px";
             title.style.fontSize = "56px";
+            titleBar.classList.remove("shadow");
         }
 
         // any $scope variable updates
