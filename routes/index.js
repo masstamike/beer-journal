@@ -1,13 +1,50 @@
-var express = require('express');
-var router = express.Router();
+var express   = require('express');
+var passport  = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var router    = express.Router();
 
 // Grab the model
 var Review = require ('../models/review.js');
+var User   = require ('../models/user.js');
+
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    User.findByUsername(username, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+      if (user.password != password) {
+        return done(null, false, { message: 'Incorrect password.' });
+      }
+      return done(null, user);
+    });
+  }
+));
+
+passport.serializeUser(function(user, cb) {
+  cb(null, user.id);
+});
+
+passport.deserializeUser(function(id, cb) {
+  User.findById(id, function (err, user) {
+    if (err) { return cb(err); }
+    cb(null, user);
+  });
+});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'The Beer Journal', description: 'A collaborative place for beer enthusiasts.' });
 });
+
+router.post('/login',
+  passport.authenticate('local',
+    {
+      successRedirect: '/',
+      failureRedirect: '/login'
+    }
+  ));
 
 router.post('/reviews/new', function (req, res) {
   var review = new Review ({
