@@ -52,6 +52,7 @@ a {
 
 #contentContainer {
   float: left;
+  width: 100%;
   margin-top: 128px;
 }
 
@@ -70,8 +71,7 @@ input.underline {
 
 .sidebar > .menuItem {
   text-align: center;
-  width: 128px;
-  margin: 8px 0;
+  margin: 8px 24px 8px 0px;
   padding: 16px 0;
   left: 0;
   background-color: #e5e5e5;
@@ -86,7 +86,6 @@ input.underline {
   position: relative;
   background-color: white;
   float:left;
-  margin: 16px 4px 48px;
   padding: 8px;
   font-size: 16px;
   box-shadow: 0 1px 4px rgba(0,0,0,.17);

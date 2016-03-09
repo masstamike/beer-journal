@@ -7,6 +7,9 @@ var router    = express.Router();
 var Review = require ('../models/review.js');
 var User   = require ('../models/user.js');
 
+// Define title bar arguments
+var titleBar = {title: 'The Beer Journal', description: 'A collaborative place for beer enthusiasts.'};
+
 passport.use(new LocalStrategy(
   function(username, password, done) {
     User.findByUsername(username, function (err, user) {
@@ -35,8 +38,12 @@ passport.deserializeUser(function(id, cb) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'The Beer Journal', description: 'A collaborative place for beer enthusiasts.' });
+  res.render('index', titleBar);
 });
+
+router.get('/login', function(req, res, next) {
+  res.render('login', titleBar);
+})
 
 router.post('/login',
   passport.authenticate('local',
