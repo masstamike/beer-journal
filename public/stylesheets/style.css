@@ -14,6 +14,29 @@ a {
   color: #FFD740;
 }
 
+#login {
+  font-size: 20px;
+  text-align: center;
+  width: 200px;
+  padding-top: 10%;
+  margin: 0 auto;
+}
+
+#login > input {
+  height: 20px;
+  width: 200px;
+  margin-left: 0;
+}
+
+#submitBtn {
+  width: 100px;
+  height: 25px;
+  background-color: cornflowerblue;
+  border-radius: 50px;
+  margin: 10px auto;
+  text-align: center;
+}
+
 .notes > textarea {
   width: 90%;
   height: 128px;

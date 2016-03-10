@@ -29,3 +29,5 @@ angular
         redirectTo: '/'
       });
   });
+
+var xhttp = new XMLHttpRequest();

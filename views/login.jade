@@ -10,4 +10,7 @@ block content
       | Password
       input(type="password", name="password")
       br
-      input(type="submit")
+      #submitBtn(onclick="xhttp.open(\"POST\", \"login\", true);" +
+      "xhttp.setRequestHeader(\"Content-type\", \"application/x-www-form-urlencoded\");" +
+      "xhttp.send(\"username=jack&password=secret\");")
+         | SUBMIT

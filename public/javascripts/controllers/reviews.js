@@ -62,6 +62,10 @@ app.controller('ReviewsCtrl', function($scope, $http) {
             });
     };
 
+    $scope.submitLogin = function() {
+        alert("Hi!");
+    };
+
     var titleSize = function (maxSize, offset) {
 
         if (offset <= 64) {
