@@ -1,6 +1,14 @@
 /**
  * Created by masstamike on 3/8/16.
  */
+'use strict';
+var mongoose = require('mongoose');
+
+module.exports = mongoose.model('User', {
+    username: {type: String},
+    password: {type: String}
+})
+
 var records = [
     { id: 1, username: 'jack', password: 'secret', displayName: 'Jack', emails: [ { value: 'jack@example.com' } ] }
     , { id: 2, username: 'jill', password: 'birthday', displayName: 'Jill', emails: [ { value: 'jill@example.com' } ] }

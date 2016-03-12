@@ -1,3 +1,9 @@
+/*
+    Author: Michael Sawyer
+    Date: 3/10/2016
+ */
+'use strict';
+
 var express   = require('express');
 var passport  = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
@@ -41,17 +47,30 @@ router.get('/', function(req, res, next) {
   res.render('index', titleBar);
 });
 
-router.get('/login', function(req, res, next) {
-  res.render('login', titleBar);
-})
+router.post('/register', function(req, res) {
+  User.save(new User({username: req.body.username, password: req.body.password}),
+  req.body.password, function(err, account) {
+        if (err) {
+          return res.status(500).json({
+            err: err
+          });
+        }
 
-router.post('/login',
-  passport.authenticate('local',
-    {
-      successRedirect: '/',
-      failureRedirect: '/login'
-    }
-  ));
+        passport.authenticate('local')(req, res, function() {
+          return res.status(200).json({
+            status: 'Registration successful!'
+          });
+        });
+      });
+});
+
+router.post('/login', function (req, res) {
+  passport.authenticate('local')(req, res, function () {
+    return res.status(200).json({
+      status: 'Registration successful!'
+    });
+  });
+});
 
 router.post('/reviews/new', function (req, res) {
   var review = new Review ({
