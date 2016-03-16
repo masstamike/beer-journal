@@ -16,20 +16,7 @@ var User   = require ('../models/user.js');
 // Define title bar arguments
 var titleBar = {title: 'The Beer Journal', description: 'A collaborative place for beer enthusiasts.'};
 
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-    User.findByUsername(username, function (err, user) {
-      if (err) { return done(err); }
-      if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
-      }
-      if (user.password != password) {
-        return done(null, false, { message: 'Incorrect password.' });
-      }
-      return done(null, user);
-    });
-  }
-));
+passport.use(new LocalStrategy(User.authenticate()));
 
 passport.serializeUser(function(user, cb) {
   cb(null, user.id);
@@ -48,8 +35,8 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/register', function(req, res) {
-  User.save(new User({username: req.body.username, password: req.body.password}),
-  req.body.password, function(err, account) {
+  User.register(new User({ username : req.body.username }),
+      req.body.password, function(err, account) {
         if (err) {
           return res.status(500).json({
             err: err
@@ -64,12 +51,27 @@ router.post('/register', function(req, res) {
       });
 });
 
-router.post('/login', function (req, res) {
-  passport.authenticate('local')(req, res, function () {
-    return res.status(200).json({
-      status: 'Registration successful!'
+router.post('/login', function(req, res, next) {
+  passport.authenticate('local', function(err, user, info) {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res.status(401).json({
+        err: info
+      });
+    }
+    req.logIn(user, function(err) {
+      if (err) {
+        return res.status(500).json({
+          err: 'Could not log in user'
+        });
+      }
+      res.status(200).json({
+        status: 'Login successful!'
+      });
     });
-  });
+  })(req, res, next);
 });
 
 router.post('/reviews/new', function (req, res) {

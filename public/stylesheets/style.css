@@ -29,6 +29,8 @@ a {
 }
 
 #submitBtn {
+  font-size: 18px;
+  border: 0;
   width: 100px;
   height: 25px;
   background-color: cornflowerblue;
