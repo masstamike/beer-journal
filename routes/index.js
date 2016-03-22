@@ -74,6 +74,13 @@ router.post('/login', function(req, res, next) {
   })(req, res, next);
 });
 
+router.get('/logout', function(req, res) {
+  req.logout();
+  res.status(200).json({
+    status: 'Bye!'
+  });
+});
+
 router.post('/reviews/new', function (req, res) {
   var review = new Review ({
     beer        : req.body.beerName,

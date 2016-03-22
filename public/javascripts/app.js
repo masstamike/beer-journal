@@ -9,29 +9,29 @@
  * Main module of the application.
  */
 angular
-  .module('beerJournalApp', [
-    //'ngAnimate',
-    //'ngCookies',
-    //'ngResource',
-    'ngRoute'
-    //'ngSanitize',
-    //'ngTouch'
-  ])
-  .config(function ($routeProvider) {
-    $routeProvider
+    .module('beerJournalApp', [
+        //'ngAnimate',
+        //'ngCookies',
+        //'ngResource',
+        'ngRoute'
+        //'ngSanitize',
+        //'ngTouch'
+    ])
+    .config(function ($routeProvider) {
+        $routeProvider
 
-      // Root Page.
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'ReviewsCtrl'
-      })
-      .when('/login', {
-          templateUrl: 'views/login.html',
-          controller: 'LoginCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
-  });
+            // Root Page.
+            .when('/', {
+                templateUrl: 'views/main.html',
+                controller: 'ReviewsCtrl'
+            })
+            .when('/login', {
+                templateUrl: 'views/login.html',
+                controller: 'LoginCtrl'
+            })
+            .otherwise({
+                redirectTo: '/'
+            });
+    });
 
 var xhttp = new XMLHttpRequest();
