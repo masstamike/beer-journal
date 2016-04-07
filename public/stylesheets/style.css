@@ -14,7 +14,7 @@ a {
   color: #FFD740;
 }
 
-#login {
+.userReg {
   font-size: 20px;
   text-align: center;
   width: 200px;
@@ -67,6 +67,7 @@ a {
 
 #title {
   margin: 10px;
+  text-shadow: -5px 5px #0064B3;
 }
 
 #description {

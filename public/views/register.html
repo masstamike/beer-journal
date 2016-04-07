@@ -1,7 +1,8 @@
-<div id="login" class="userReg">
+<div id="register" class="userReg">
     <div class="label">Username</div>
     <input type="text" name="username" ng-model="creds.username"/><br>
     <div class="label">Password</div>
     <input type="password" name="password" ng-model="creds.password"/><br>
-    <button id="submitBtn" ng-click="submitLogin()">SUBMIT</button>
+    <input type="password" name="password-verify" ng-model="creds.passwordVerify"/><br>
+    <button id="submitBtn" ng-click="submitRegister('/user/register')">Register</button>
 </div>

@@ -34,7 +34,7 @@ router.get('/', function(req, res, next) {
   res.render('index', titleBar);
 });
 
-router.post('/register', function(req, res) {
+router.post('/user/register', function(req, res) {
   User.register(new User({ username : req.body.username }),
       req.body.password, function(err, account) {
         if (err) {
@@ -51,7 +51,7 @@ router.post('/register', function(req, res) {
       });
 });
 
-router.post('/login', function(req, res, next) {
+router.post('/user/login', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
     if (err) {
       return next(err);
@@ -74,7 +74,7 @@ router.post('/login', function(req, res, next) {
   })(req, res, next);
 });
 
-router.get('/logout', function(req, res) {
+router.get('/user/logout', function(req, res) {
   req.logout();
   res.status(200).json({
     status: 'Bye!'

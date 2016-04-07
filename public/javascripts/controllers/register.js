@@ -4,16 +4,17 @@
 'use strict';
 
 var app = angular.module('beerJournalApp');
-app.controller('LoginCtrl', function($scope, $http) {
+app.controller('RegisterCtrl', function($scope, $http) {
     $scope.creds = {};
 
-    $scope.submitLogin = function() {
-
-        $http.post('/user/login', $scope.creds)
+    $scope.sendCreds = function (endpoint) {
+        $http.post(endpoint, $scope.creds)
             .then(function() {
                 alert("Success, " + $scope.creds.username);
             }, function() {
                 alert("Fail!");
             });
     };
+
+    $scope.submitRegister = $scope.sendCreds;
 });
