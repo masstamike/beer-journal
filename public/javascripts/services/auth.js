@@ -17,7 +17,7 @@ angular.module('beerJournalApp').factory('AuthService',
             };
 
             var getUserStatus = function () {
-                var callback = $http.get('/user/status');
+                var callback = $http.get('user/status');
                 // handle success
                 callback.success(function (data) {
                     if(data.status){
@@ -37,7 +37,7 @@ angular.module('beerJournalApp').factory('AuthService',
 
                 var deferred = $q.defer();
 
-                $http.post('/user/login',
+                $http.post('user/login',
                     {username: username, password: password})
                     // handle success
                     .success(function (data, status) {
@@ -60,7 +60,7 @@ angular.module('beerJournalApp').factory('AuthService',
             var logout = function () {
                 var deferred = $q.defer();
 
-                $http.get('/user/logout')
+                $http.get('user/logout')
                     .success(function (data) {
                         user = false;
                         deferred.resolve();
@@ -75,7 +75,7 @@ angular.module('beerJournalApp').factory('AuthService',
             var register = function (username, password) {
                 var deferred = $q.defer();
 
-                $http.post('/user/register', {
+                $http.post('user/register', {
                     username: username,
                     password: password
                 })
