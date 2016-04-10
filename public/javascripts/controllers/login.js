@@ -4,16 +4,29 @@
 'use strict';
 
 var app = angular.module('beerJournalApp');
-app.controller('LoginCtrl', function($scope, $http) {
+app.controller('LoginCtrl', ['$scope', '$location', 'AuthService', function($scope, $location, AuthService) {
     $scope.creds = {};
 
-    $scope.submitLogin = function() {
+    $scope.login = function() {
+        $scope.error = false;
 
-        $http.post('/user/login', $scope.creds)
-            .then(function() {
-                alert("Success, " + $scope.creds.username);
-            }, function() {
-                alert("Fail!");
+        $scope.disabled = true;
+
+        // call login from service
+        AuthService.login($scope.creds.username, $scope.creds.password)
+            // handle success
+            .then(function () {
+                $location.path('/');
+                $scope.disabled = false;
+                $scope.creds = {};
+            })
+            // handle error
+            .catch(function () {
+                $scope.error = true;
+                $scope.errorMessage = "Invalid username and/or password";
+                $scope.disabled = false;
+                $scope.creds = {};
             });
     };
-});
+
+}]);

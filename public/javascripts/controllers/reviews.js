@@ -48,6 +48,17 @@ app.controller('ReviewsCtrl', function($scope, $http) {
         $http.post('reviews/new', $scope.review)
             .then(function () {
                 console.log("Successfully uploaded review!");
+
+                review.beerName = '';
+                review.brewer = '';
+                review.price = 0;
+                review.sampleDate = new Date();
+                review.rating = 0;
+                review.notes = '';
+                review.abv = 0;
+                review.ibu = 0;
+                review.servingType = '';
+
                 var reviewNode = document.getElementById('activeReview');
                 var completedReviewNode = reviewNode.cloneNode(true);
                 var reviewsNode = document.getElementById('reviews');

@@ -81,6 +81,17 @@ router.get('/user/logout', function(req, res) {
   });
 });
 
+router.get('/user/status', function(req, res) {
+  if (!req.isAuthenticated()) {
+    return res.status(200).json({
+      status: false
+    });
+  }
+  res.status(200).json({
+    status: true
+  });
+});
+
 router.post('/reviews/new', function (req, res) {
   var review = new Review ({
     beer        : req.body.beerName,
