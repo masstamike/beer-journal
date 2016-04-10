@@ -17,19 +17,20 @@ angular.module('beerJournalApp').factory('AuthService',
             };
 
             var getUserStatus = function () {
-                $http.get('/user/status')
-                    // handle success
-                    .success(function (data) {
-                        if(data.status){
-                            user = true;
-                        } else {
-                            user = false;
-                        }
-                    })
+                var callback = $http.get('/user/status');
+                // handle success
+                callback.success(function (data) {
+                    if(data.status){
+                        user = true;
+                    } else {
+                        user = false;
+                    }
+                })
                     // handle error
                     .error(function (data) {
                         user = false;
                     });
+                return callback;
             };
 
             var login = function (username, password) {
