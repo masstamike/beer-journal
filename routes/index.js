@@ -31,6 +31,11 @@ passport.deserializeUser(function(id, cb) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  var username = "anonymous";
+  if (req.user) {
+      username = req.user.username;
+  }
+  titleBar.username = username;
   res.render('index', titleBar);
 });
 
@@ -94,6 +99,7 @@ router.get('/user/status', function(req, res) {
 
 router.post('/reviews/new', function (req, res) {
   var review = new Review ({
+    username    : req.user.username,
     beer        : req.body.beerName,
     brewer      : req.body.brewer,
     price       : req.body.price,

@@ -63,6 +63,16 @@ a {
   z-index: 500;
 }
 
+#username {
+  float: right;
+  font-size: 12px;
+}
+
+a#logout {
+  float: right;
+  font-size: 12px;
+}
+
 .shadow {
   -webkit-box-shadow: 0 2px 2px #b5b5b5;
   -moz-box-shadow: 0 2px 2px #b5b5b5;
