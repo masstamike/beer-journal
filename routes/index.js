@@ -115,4 +115,13 @@ router.post('/reviews/new', function (req, res) {
   res.json(review);
 });
 
+router.get('/reviews/all', function (req, res) {
+  Review.find({}).exec(function(err, results) {
+    if (err) {
+      console.log(err);
+    }
+    res.json(results);
+  });
+});
+
 module.exports = router;

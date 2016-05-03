@@ -1,0 +1,81 @@
+<div class="sidebar">
+    <div class="menuItem"><a href="#/">Home</a></div>
+    <div class="menuItem">My Reviews</div>
+    <div class="menuItem"><a href="#/reviews">Community</a></div>
+    <div class="menuItem">Log Out</div>
+</div>
+<div id="reviews">
+    <div class="reviewContainer">
+        <table>
+            <tr>
+                <th>Beer Name</th>
+                <th>Brewer</th>
+                <th>Price</th>
+                <th>Sampled Date</th>
+                <th>Rating</th>
+                <th>Notes</th>
+                <th>ABV</th>
+                <th>IBU</th>
+            </tr>
+            <tr ng-repeat="review in reviews">
+                <td>{{review.beer}}</td>
+                <td>{{review.brewer}}</td>
+                <td>{{review.price}}</td>
+                <td style="width:15%">{{review.sampled}}</td>
+                <td>{{review.rating}}</td>
+                <td style="text-align: center; width:45%">{{review.notes}}</td>
+                <td>{{review.abv}}</td>
+                <td>{{review.ibu}}</td>
+            </tr>
+        </table>
+        <!--<div class="review" ng-repeat="review in reviews">-->
+            <!--<div class="reviewRow">-->
+                <!--BEER NAME: {{review.beer}}-->
+            <!--</div>-->
+            <!--<div class="reviewRow">-->
+                <!--<div class="brewer">BREWER: {{review.brewer}}</div>-->
+                <!--<div class="price">PRICE ${{review.price}}</div>-->
+            <!--</div>-->
+            <!--<div class="reviewRow">-->
+                <!--<div class="sampleDate">SAMPLED: {{review.sampleDate}}</div>-->
+                <!--<div class="ratingSection">-->
+                    <!--RATING-->
+                    <!--<div class="rating">-->
+                        <!--<span ng-repeat="star in review.rating" class="gold">☆</span>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="reviewRow">-->
+                <!--<div class="notes">NOTES:<br>-->
+                    <!--{{review.notes}}<br>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="statsAndServing">-->
+                <!--<div class="stats">-->
+                    <!--<div class="title">STATS</div>-->
+                    <!--<div class="statsLabels">ABV (%)<br/>IBU</div>-->
+                    <!--<div class="statsInput">-->
+                        <!--{{review.abv}}<br>-->
+                        <!--{{review.ibu}}<br>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="servingType">-->
+                    <!--<div class="title">SERVING TYPE-->
+                    <!--</div>-->
+                    <!--<ul>-->
+                        <!--<span ng-show="review.servingType == draft">&#x2713;</span><li>Draft</li>-->
+                        <!--<span ng-show="review.servingType == cask">&#x2713;</span><li>Cask</li>-->
+                        <!--<span ng-show="review.servingType == bottle">&#x2713;</span><li>Bottle</li>-->
+                        <!--<span ng-show="review.servingType == can">&#x2713;</span><li>Can</li>-->
+                        <!--<span ng-show="review.servingType == growler">&#x2713;</span><li>Growler</li>-->
+                    <!--</ul>-->
+                    <!--<br>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="flavorWheel">-->
+
+            <!--</div>-->
+        <!--</div>-->
+        </table>
+    </div>
+</div>

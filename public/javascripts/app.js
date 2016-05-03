@@ -41,6 +41,11 @@ angular
                 controller: 'RegisterCtrl',
                 access: {restricted: false}
             })
+            .when('/reviews', {
+                templateUrl: 'views/all_reviews.html',
+                controller: 'AllReviewsCtrl',
+                access: {restricted: false}
+            })
             .otherwise({
                 redirectTo: '/'
             });
