@@ -196,6 +196,7 @@ input {
 
 .ratingSection {
   float: right;
+  width: 160px;
 }
 
 .rating {

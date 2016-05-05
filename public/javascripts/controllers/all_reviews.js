@@ -20,4 +20,9 @@ app.controller('AllReviewsCtrl', function($scope, $http) {
     }).then(function(err) {
         console.log(err);
     });
+
+    $scope.getNumber = function (int) {
+        var arr = new Array(int);
+        return arr;
+    }
 });
