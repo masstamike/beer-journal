@@ -45,7 +45,7 @@ a {
 
 .notes > textarea {
   width: 90%;
-  height: 128px;
+  height: 64px;
   border: 0;
   margin: 0 4%;
   resize: none;
@@ -125,11 +125,13 @@ input.underline {
 
 .reviewContainer {
   position: relative;
+  margin-top:24px;
   background-color: white;
   float:left;
   padding: 8px;
   font-size: 16px;
   box-shadow: 0 1px 4px rgba(0,0,0,.17);
+  overflow: auto;
 }
 
 .fadeIn {
@@ -142,7 +144,16 @@ input.underline {
 }
 
 .review {
-  max-width: 400px;
+  width: 650px;
+}
+
+.leftReview {
+  float:left;
+  max-width: 500px;
+}
+
+.rightReview {
+  float:left;
 }
 
 #beerName {
@@ -262,17 +273,10 @@ div.servingType {
   padding: 5%;
 }
 
-.flavorWheel {
-  float: right;
-  margin-top: 64px;
-  width: 50%;
-  height: 176px;
-}
-
 .hoverButton {
-  bottom: 0;
+  bottom: 48px;
   right: 0;
-  position: absolute;
+  position: fixed;
   background: #18FFFF url(../images/plus.png);
   border-radius: 50%;
   width: 64px;
@@ -284,6 +288,6 @@ div.servingType {
 }
 
 .hoverButton:hover {
-  bottom: 4px;
+  bottom: 52px;
   box-shadow: 0 12px 10px rgba(0,0,0,0.3);
 }

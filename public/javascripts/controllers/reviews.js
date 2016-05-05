@@ -63,8 +63,6 @@ app.controller('ReviewsCtrl', function($scope, $http) {
                 var completedReviewNode = reviewNode.cloneNode(true);
                 var reviewsNode = document.getElementById('reviews');
                 var firstCompletedNode = document.getElementsByClassName('fadeIn')[0];
-                var submitButton = completedReviewNode.getElementsByClassName('hoverButton')[0];
-                completedReviewNode.removeChild(submitButton);
                 completedReviewNode.id="";
                 completedReviewNode.classList.add("fadeIn");
                 reviewsNode.insertBefore(completedReviewNode, firstCompletedNode);
