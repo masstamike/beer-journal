@@ -44,7 +44,7 @@ a {
 }
 
 .notes > textarea {
-  width: 90%;
+  width: 100%;
   height: 64px;
   border: 0;
   margin: 0 4%;
@@ -149,11 +149,12 @@ input.underline {
 
 .leftReview {
   float:left;
-  max-width: 500px;
+  max-width: 450px;
 }
 
 .rightReview {
   float:left;
+  padding-left: 36px;
 }
 
 #beerName {
@@ -194,7 +195,7 @@ input {
 }
 
 .ratingSection {
-  float: left;
+  float: right;
 }
 
 .rating {
