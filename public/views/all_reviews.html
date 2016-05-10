@@ -4,7 +4,7 @@
     <div class="menuItem"><a href="#/reviews">Community</a></div>
     <div class="menuItem">Log Out</div>
 </div>
-<div id="reviews">
+<div id="reviews" ng-class="{overlay: newReview}">
     <div class="reviewContainer" ng-repeat="review in reviews">
         <div class="review">
             <div class="leftReview">
@@ -55,4 +55,4 @@
         </div>
     </div>
 </div>
-<div id="submitButton" class="hoverButton" ng-click="submitReview();"/>
+<div id="submitButton" class="hoverButton" ng-click="createReview();"/>

@@ -7,6 +7,7 @@ var app = angular.module('beerJournalApp');
 app.controller('AllReviewsCtrl', function($scope, $http) {
 
     $scope.reviews = [];
+    $scope.newReview = false;
 
     $http.get('reviews/all').then(function(reviews) {
 
@@ -24,5 +25,13 @@ app.controller('AllReviewsCtrl', function($scope, $http) {
     $scope.getNumber = function (int) {
         var arr = new Array(int);
         return arr;
+    }
+
+    $scope.createReview = function() {
+        if ($scope.newReview) {
+            $scope.newReview = false;
+        } else {
+            $scope.newReview = true;
+        }
     }
 });
