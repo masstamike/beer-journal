@@ -8,6 +8,7 @@ app.controller('AllReviewsCtrl', function($scope, $http) {
 
     $scope.reviews = [];
     $scope.newReview = false;
+    $scope.templateUrl = "";
 
     $http.get('reviews/all').then(function(reviews) {
 
@@ -30,8 +31,10 @@ app.controller('AllReviewsCtrl', function($scope, $http) {
     $scope.createReview = function() {
         if ($scope.newReview) {
             $scope.newReview = false;
+            $scope.templateUrl = "";
         } else {
             $scope.newReview = true;
+            $scope.templateUrl = "views/new_review.html";
         }
     }
 });
