@@ -58,14 +58,6 @@ app.controller('ReviewsCtrl', function($scope, $http) {
                 review.abv = 0;
                 review.ibu = 0;
                 review.servingType = '';
-
-                var reviewNode = document.getElementById('activeReview');
-                var completedReviewNode = reviewNode.cloneNode(true);
-                var reviewsNode = document.getElementById('reviews');
-                var firstCompletedNode = document.getElementsByClassName('fadeIn')[0];
-                completedReviewNode.id="";
-                completedReviewNode.classList.add("fadeIn");
-                reviewsNode.insertBefore(completedReviewNode, firstCompletedNode);
             }, function (error) {
                 console.log("Error: " + error);
             });

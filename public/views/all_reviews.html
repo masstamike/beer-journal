@@ -56,4 +56,4 @@
     </div>
 </div>
 <div ng-include="templateUrl"></div>
-<div id="submitButton" class="hoverButton" ng-click="createReview();"/>
+<div id="submitButton" ng-class="{hoverButton: !newReview, cancelButton: newReview}" ng-click="createReview();"/>

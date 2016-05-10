@@ -37,15 +37,8 @@ a {
   margin-left: 0;
 }
 
-#submitBtn {
-  font-size: 18px;
-  border: 0;
-  width: 100px;
-  height: 25px;
-  background-color: cornflowerblue;
-  border-radius: 50px;
-  margin: 10px auto;
-  text-align: center;
+.submitBtn {
+  float:right;
 }
 
 .notes > textarea {
@@ -305,6 +298,26 @@ div.servingType {
 }
 
 .hoverButton:hover {
+  bottom: 52px;
+  box-shadow: 0 12px 10px rgba(0,0,0,0.3);
+}
+
+.cancelButton {
+  transform: rotate(45deg);
+  bottom: 48px;
+  right: 0;
+  position: fixed;
+  background: #F44336 url(../images/plus.png);
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  box-shadow: 0 6px 10px rgba(0,0,0,0.3);
+  float: right;
+  margin-bottom: -32px;
+  margin-right: 16px;
+}
+
+.cancelButton:hover {
   bottom: 52px;
   box-shadow: 0 12px 10px rgba(0,0,0,0.3);
 }

@@ -1,4 +1,4 @@
-<div class="floatingReview">
+<div class="floatingReview" ng-controller="ReviewsCtrl">
     <div class="review">
         <div class="leftReview">
             <div class="reviewRow">
@@ -48,6 +48,10 @@
                     <input type="radio" ng-model="review.servingType" name="serveType" value="growler">Growler
                     <br>
                 </div>
+                <img src="images/submit.svg" onmouseout="this.src='images/submit.svg'"
+                     onmouseover="this.src='images/submit_hover.svg'" class="submitBtn"
+                     ng-click="submitReview();createReview();"
+                     width="36px" height="36px"/>
             </div>
         </div>
     </div>
