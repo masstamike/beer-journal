@@ -22,8 +22,8 @@ angular
 
             // Root Page.
             .when('/', {
-                templateUrl: 'views/main.html',
-                controller: 'ReviewsCtrl',
+                templateUrl: 'views/all_reviews.html',
+                controller: 'AllReviewsCtrl',
                 access: {restricted: true}
             })
             .when('/login', {
