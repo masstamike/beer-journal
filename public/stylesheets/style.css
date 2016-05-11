@@ -311,7 +311,7 @@ div.servingType {
   border-radius: 50%;
   width: 64px;
   height: 64px;
-  box-shadow: 0 6px 10px rgba(0,0,0,0.3);
+  box-shadow: 4px 4px 10px rgba(0,0,0,0.3);
   float: right;
   margin-bottom: -32px;
   margin-right: 16px;
@@ -319,5 +319,5 @@ div.servingType {
 
 .cancelButton:hover {
   bottom: 52px;
-  box-shadow: 0 12px 10px rgba(0,0,0,0.3);
+  box-shadow: 8px 8px 10px rgba(0,0,0,0.3);
 }
