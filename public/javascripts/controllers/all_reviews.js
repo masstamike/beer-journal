@@ -10,18 +10,20 @@ app.controller('AllReviewsCtrl', function($scope, $http) {
     $scope.newReview = false;
     $scope.templateUrl = "";
 
-    $http.get('reviews/all').then(function(reviews) {
+    $scope.getReviews = function () {
+        $http.get('reviews/all').then(function (reviews) {
 
-        reviews = reviews.data.map(function(cur, index, arr) {
-            var sampledNice = new Date(arr[index].sampled);
-            arr[index].sampled = sampledNice.toDateString();
-            return arr[index];
+            reviews = reviews.data.map(function (cur, index, arr) {
+                var sampledNice = new Date(arr[index].sampled);
+                arr[index].sampled = sampledNice.toDateString();
+                return arr[index];
+            });
+
+            $scope.reviews = reviews;
+        }).then(function (err) {
+            console.log(err);
         });
-
-        $scope.reviews = reviews;
-    }).then(function(err) {
-        console.log(err);
-    });
+    };
 
     $scope.getNumber = function (int) {
         var arr = new Array(int);
@@ -36,5 +38,7 @@ app.controller('AllReviewsCtrl', function($scope, $http) {
             $scope.newReview = true;
             $scope.templateUrl = "views/new_review.html";
         }
-    }
+    };
+
+    $scope.getReviews();
 });
