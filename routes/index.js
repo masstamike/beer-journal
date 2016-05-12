@@ -79,7 +79,7 @@ router.post('/user/login', function(req, res, next) {
   })(req, res, next);
 });
 
-router.get('/user/logout', function(req, res) {
+router.post('/user/logout', function(req, res) {
   req.logout();
   res.status(200).json({
       status: 'Logout successful!'
