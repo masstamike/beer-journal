@@ -81,9 +81,7 @@ router.post('/user/login', function(req, res, next) {
 
 router.get('/user/logout', function(req, res) {
   req.logout();
-  res.status(200).json({
-    status: 'Bye!'
-  });
+  res.redirect('/');
 });
 
 router.get('/user/status', function(req, res) {
