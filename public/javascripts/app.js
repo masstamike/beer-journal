@@ -33,6 +33,7 @@ angular
 
             })
             .when('/logout', {
+                templateUrl: 'views/login.html',
                 controller: 'LogoutCtrl',
                 access: {restricted: true}
             })

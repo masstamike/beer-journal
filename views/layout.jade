@@ -8,12 +8,13 @@ html
     script(src="javascripts/app.js")
     script(src="javascripts/controllers/reviews.js")
     script(src="javascripts/controllers/login.js")
+    script(src="javascripts/controllers/logout.js")
     script(src="javascripts/controllers/register.js")
     script(src="javascripts/controllers/all_reviews.js")
     script(src="javascripts/services/auth.js")
   body(ng-app="beerJournalApp")
     #titleBar
-      a#logout(href="user/logout")="logout"
+      a#logout(href="#/logout")="logout"
       #username=username + " | "
       #title= title
       #description= description
