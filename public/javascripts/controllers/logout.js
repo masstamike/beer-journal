@@ -6,7 +6,7 @@
 var app = angular.module('beerJournalApp');
 app.controller('LogoutCtrl', ['$http', '$location', function($http, $location) {
 
-    $http.get('/user/logout').then(function(response) {
+    $http.get('user/logout').then(function(response) {
         $location.path('/');
     }).then(function(err) {
         console.log(err);
