@@ -267,6 +267,15 @@ div.statsLabels {
   float: left;
 }
 
+div.username {
+  right: 0;
+  bottom: 0;
+  color: orange;
+  margin-right: 36px;
+  margin-bottom: 18px;
+  float: right;
+}
+
 div.statsInput {
   float: right;
 }
