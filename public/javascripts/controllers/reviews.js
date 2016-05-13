@@ -38,6 +38,7 @@ app.controller('ReviewsCtrl', function($scope, $http) {
         Citrus: 0,
         DarkFruit: 0
     };
+
     $scope.ratingGold = function (place) {
         if (place <= $scope.review.rating) {
             return "gold";

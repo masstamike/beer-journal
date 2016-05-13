@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "karma start"
+    "test": "PHANTOMJS_BIN=`which phantomjs` karma start"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
@@ -23,6 +23,7 @@
   "devDependencies": {
     "angular": "^1.5.5",
     "angular-mocks": "^1.5.5",
-    "angular-route": "^1.5.5"
+    "angular-route": "^1.5.5",
+    "phantomjs": "^2.1.7"
   }
 }
