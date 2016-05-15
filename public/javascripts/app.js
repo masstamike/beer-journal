@@ -55,7 +55,7 @@ angular
         $rootScope.$on('$routeChangeStart',
             function (event, next, current) {
                 AuthService.getUserStatus().then(function() {
-                    if (next.access.restricted && AuthService.isLoggedIn() === false) {
+                    if (next.access && next.access.restricted && AuthService.isLoggedIn() === false) {
                         $location.path('/login');
                         $route.reload();
                     }});
