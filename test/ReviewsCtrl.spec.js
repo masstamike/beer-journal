@@ -67,4 +67,32 @@ describe('Controller: ReviewsCtrl', function() {
             expect($scope.review.beerName).toBe('');
         });
     });
+
+    describe('titleSize', function() {
+
+        beforeEach(function() {
+            $controller('ReviewsCtrl', {$scope: $scope});
+        });
+
+        it('Should return "64px" if offset is greater than 64', function() {
+            var max_size = 128,
+                offset = 100;
+            var response = $scope.titleSize(max_size, offset);
+            expect(response).toBe("64px");
+        });
+
+        it('Should return max size if offset is 0', function() {
+            var max_size = 128,
+                offset = 0;
+            var response = $scope.titleSize(max_size, offset);
+            expect(response).toBe(max_size + "px");
+        });
+
+        it('Should return max size less offset if 64>offset>=max size', function() {
+            var max_size = 128,
+                offset = 32;
+            var response = $scope.titleSize(max_size, offset);
+            expect(response).toBe(max_size-offset + "px");
+        });
+    });
 });

@@ -64,7 +64,7 @@ app.controller('ReviewsCtrl', function($scope, $http) {
             });
     };
 
-    var titleSize = function (maxSize, offset) {
+    $scope.titleSize = function (maxSize, offset) {
 
         if (offset <= 64) {
             return (maxSize - offset) + "px";
