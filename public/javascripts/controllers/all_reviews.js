@@ -19,7 +19,8 @@ app.controller('AllReviewsCtrl', function($scope, $http) {
             });
             $scope.reviews = reviews;
         }, function (err) {
-            console.log(err);
+            $scope.reviews = [{beer:"Failed to retrieve reviews."}];
+            console.error(err.status);
         });
     };
 
