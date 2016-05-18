@@ -8,8 +8,8 @@ app.controller('LogoutCtrl', ['$http', '$location', function($http, $location) {
 
     $http.post('user/logout').then(function(response) {
         $location.path('/');
-    }).then(function(err) {
-        console.log(err);
-    })
+    }, function(err) {
+        console.error(err);
+    });
 
 }]);
