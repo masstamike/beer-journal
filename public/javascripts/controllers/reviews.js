@@ -5,9 +5,6 @@
 
 var app = angular.module('beerJournalApp');
 app.controller('ReviewsCtrl', function($scope, $http) {
-    var titleBar = document.getElementById('titleBar');
-    var title = document.getElementById('title');
-    var desc = document.getElementById('description');
 
     var review = $scope.review = {};
     review.beerName = '';
@@ -64,46 +61,4 @@ app.controller('ReviewsCtrl', function($scope, $http) {
             });
     };
 
-    $scope.titleSize = function (maxSize, offset) {
-
-        if (offset <= 64) {
-            return (maxSize - offset) + "px";
-        } else {
-            return "64px";
-        }
-    };
-
-    window.onscroll = function () {
-
-        var coord = window.pageYOffset;
-
-        titleBar.style.height = titleSize(128, coord);
-
-        if (coord >= 32) {
-            if (coord >= 56) {
-                title.style.margin = "0 10px";
-                title.style.fontSize = "48px";
-                titleBar.classList.add("shadow");
-            } else {
-                title.style.margin = "10px";
-                title.style.fontSize = "56px";
-                titleBar.classList.remove("shadow");
-            }
-            if (document.getElementById('description') != undefined) {
-                titleBar.removeChild(desc);
-            }
-        } else {
-            titleBar.appendChild(desc);
-            title.style.margin = "10px";
-            title.style.fontSize = "56px";
-            titleBar.classList.remove("shadow");
-        }
-
-        // any $scope variable updates
-        $scope.$digest();
-    };
-
-    $scope.$on('$destroy', function() {
-        window.onscroll = null;
-    });
 });
