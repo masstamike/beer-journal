@@ -60,7 +60,7 @@ app.controller('ReviewsCtrl', function($scope, $http) {
                 review.ibu = 0;
                 review.servingType = '';
             }, function (error) {
-                console.log("Error: " + error);
+                console.error("Error " + error.status + ": " + error.data);
             });
     };
 

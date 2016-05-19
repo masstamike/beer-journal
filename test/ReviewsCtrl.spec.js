@@ -45,12 +45,12 @@ describe('Controller: ReviewsCtrl', function() {
         beforeEach(inject(function($httpBackend, $http) {
             httpBackend = $httpBackend;
             http = $http;
-            httpBackend.expectPOST('reviews/new').respond(200);
-            httpBackend.expectGET('user/status').respond(200, {status:true});
             $controller('ReviewsCtrl', {$scope: $scope, $http: http});
         }));
 
         it('Should reset all values on successful upload.', function() {
+            httpBackend.expectPOST('reviews/new').respond(200);
+            httpBackend.expectGET('user/status').respond(200, {status:true});
             httpBackend.expectGET('user/status').respond(200, {status:true});
             httpBackend.expectGET('views/all_reviews.html').respond(200, '<div></div>');
             $scope.review.beerName = 'Beer';
@@ -65,6 +65,19 @@ describe('Controller: ReviewsCtrl', function() {
             $scope.submitReview();
             httpBackend.flush();
             expect($scope.review.beerName).toBe('');
+        });
+
+        it('Should log errors.', function() {
+            var errorMessage = "Error message.",
+                errorStatus = 400;
+            spyOn(console, 'error');
+            httpBackend.expectPOST('reviews/new').respond(errorStatus, errorMessage);
+            httpBackend.expectGET('user/status').respond(200, {status:true});
+            httpBackend.expectGET('user/status').respond(200, {status:true});
+            httpBackend.expectGET('').respond(200, '');
+            $scope.submitReview();
+            httpBackend.flush();
+            expect(console.error).toHaveBeenCalledWith("Error " + errorStatus + ": " + errorMessage);
         });
     });
 
