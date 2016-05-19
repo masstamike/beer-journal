@@ -8,9 +8,9 @@ describe('Controller: AllReviewsCtrl', function() {
     var httpBackend;
     var http;
 
-    beforeEach(inject(function(_$controller_, $httpBackend, $http){
+    beforeEach(inject(function(_$controller_, $httpBackend, $http, _$rootScope_){
         $controller = _$controller_;
-        $scope = {};
+        $scope = _$rootScope_.$new();
         httpBackend = $httpBackend;
         http = $http;
         $controller('AllReviewsCtrl', {$scope: $scope, $http: http});
@@ -22,9 +22,10 @@ describe('Controller: AllReviewsCtrl', function() {
 
     describe('getNumber', function() {
 
-        var result;
+        var result, size;
 
         beforeEach(inject(function () {
+            size = 5;
             result = $scope.getNumber(5);
             httpBackend.when('GET', 'reviews/all').respond(200, [{sampled: 0}]);
             httpBackend.when('GET', 'user/status').respond(200, {status:true});
@@ -33,11 +34,12 @@ describe('Controller: AllReviewsCtrl', function() {
         }));
 
         it('Array of size 5 should be returned on input=5', function () {
-            expect(result.length).toBe(5);
+            expect(result.length).toBe(size);
         });
 
         it('Return type should be an Array', function () {
-            expect(result).isArray;
+            var arr = [];
+            expect(result.prototype).toBe(arr.prototype);
         });
     });
 
@@ -65,9 +67,10 @@ describe('Controller: AllReviewsCtrl', function() {
             httpBackend.when('GET', 'views/all_reviews.html').respond(200, "<div></div>");
             httpBackend.when('GET', 'user/status').respond(200, {status:true});
             httpBackend.when('GET', 'reviews/all').respond(400);
+            spyOn(console, "error");
             $scope.getReviews();
             httpBackend.flush();
-            expect($scope.reviews[0].beer).toBe("Failed to retrieve reviews.");
+            expect(console.error).toHaveBeenCalled();
         });
     });
 
@@ -79,12 +82,91 @@ describe('Controller: AllReviewsCtrl', function() {
         it('Should switch newReview to true', function() {
             $scope.createReview();
             expect($scope.newReview).toBe(true);
-        })
+        });
 
         it('Should switch from true to false', function() {
             $scope.newReview = true;
             $scope.createReview();
             expect($scope.newReview).toBe(false);
-        })
+        });
     });
+
+    describe('titleSize', function() {
+
+        it('Should return "64px" if offset is greater than 64', function() {
+            var max_size = 128,
+                offset = 100;
+            var response = $scope.titleSize(max_size, offset);
+            expect(response).toBe("64px");
+        });
+
+        it('Should return max size if offset is 0', function() {
+            var max_size = 128,
+                offset = 0;
+            var response = $scope.titleSize(max_size, offset);
+            expect(response).toBe(max_size + "px");
+        });
+
+        it('Should return max size less offset if 64>offset>=max size', function() {
+            var max_size = 128,
+                offset = 32;
+            var response = $scope.titleSize(max_size, offset);
+            expect(response).toBe(max_size-offset + "px");
+        });
+    });
+
+    describe('window.onscroll', function() {
+        var dummyNode, dummyNodeNested;
+        beforeEach(function() {
+            dummyNodeNested = document.createElement("div");
+            dummyNode = document.createElement("div");
+            dummyNode.appendChild(dummyNodeNested);
+            spyOn(document, 'getElementById').and.returnValue(dummyNode);
+            $controller('AllReviewsCtrl', {$scope: $scope, $http: http, window: window});
+        });
+
+        it('Should shrink title bar when scroll is >= 56', function() {
+            httpBackend.when('GET', 'reviews/all').respond(200, [{sampled: 0}]);
+            spyOn($scope, 'getYOffset').and.returnValue(100);
+            $scope.desc = dummyNodeNested;
+            $scope.titleBar = dummyNode;
+            window.onscroll();
+            expect($scope.title.style.margin).toBe("0px 10px");
+            expect($scope.title.style.fontSize).toBe("48px");
+            expect($scope.titleBar.classList).toContain("shadow");
+        });
+
+        it('Should expand title bar when scroll is 32 <= x < 56', function() {
+            httpBackend.when('GET', 'reviews/all').respond(200, [{sampled: 0}]);
+            spyOn($scope, 'getYOffset').and.returnValue(42);
+            $scope.desc = dummyNodeNested;
+            $scope.titleBar = dummyNode;
+            window.onscroll();
+            expect($scope.title.style.margin).toBe("10px");
+            expect($scope.title.style.fontSize).toBe("56px");
+            expect($scope.titleBar.classList.length).toBe(0);
+        });
+
+        it('Should add description to title scroll < 32', function() {
+            httpBackend.when('GET', 'reviews/all').respond(200, [{sampled: 0}]);
+            spyOn($scope, 'getYOffset').and.returnValue(31);
+            $scope.desc = dummyNodeNested;
+            $scope.titleBar = dummyNode;
+            window.onscroll();
+            expect($scope.title.style.margin).toBe("10px");
+            expect($scope.title.style.fontSize).toBe("56px");
+            expect($scope.titleBar.classList.length).toBe(0);
+        });
+    });
+
+    describe('getYOffset', function() {
+        it("Should return the window's Y-Offset", function() {
+            var mockWindow = {
+                pageYOffset: 42
+            };
+            var yOffset = $scope.getYOffset(mockWindow);
+            expect(yOffset).toBe(mockWindow.pageYOffset);
+        });
+    });
+
 });

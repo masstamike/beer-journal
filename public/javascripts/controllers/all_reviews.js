@@ -9,9 +9,9 @@ app.controller('AllReviewsCtrl', function($scope, $http) {
     $scope.reviews = [];
     $scope.newReview = false;
     $scope.templateUrl = "";
-    var titleBar = document.getElementById('titleBar');
-    var title = document.getElementById('title');
-    var desc = document.getElementById('description');
+    $scope.titleBar = document.getElementById('titleBar');
+    $scope.title = document.getElementById('title');
+    $scope.desc = document.getElementById('description');
 
     $scope.getReviews = function () {
         $http.get('reviews/all').then(function (reviews) {
@@ -22,7 +22,6 @@ app.controller('AllReviewsCtrl', function($scope, $http) {
             });
             $scope.reviews = reviews;
         }, function (err) {
-            $scope.reviews = [{beer:"Failed to retrieve reviews."}];
             console.error(err.status);
         });
     };
@@ -50,30 +49,34 @@ app.controller('AllReviewsCtrl', function($scope, $http) {
         }
     };
 
+    $scope.getYOffset = function(window) {
+        return window.pageYOffset;
+    };
+
     window.onscroll = function () {
 
-        var coord = window.pageYOffset;
+        var coord = $scope.getYOffset(window);
 
-        titleBar.style.height = $scope.titleSize(128, coord);
+        $scope.titleBar.style.height = $scope.titleSize(128, coord);
 
         if (coord >= 32) {
             if (coord >= 56) {
-                title.style.margin = "0 10px";
-                title.style.fontSize = "48px";
-                titleBar.classList.add("shadow");
+                $scope.title.style.margin = "0 10px";
+                $scope.title.style.fontSize = "48px";
+                $scope.titleBar.classList.add("shadow");
             } else {
-                title.style.margin = "10px";
-                title.style.fontSize = "56px";
-                titleBar.classList.remove("shadow");
+                $scope.title.style.margin = "10px";
+                $scope.title.style.fontSize = "56px";
+                $scope.titleBar.classList.remove("shadow");
             }
             if (document.getElementById('description') != undefined) {
-                titleBar.removeChild(desc);
+                $scope.titleBar.removeChild($scope.desc);
             }
         } else {
-            titleBar.appendChild(desc);
-            title.style.margin = "10px";
-            title.style.fontSize = "56px";
-            titleBar.classList.remove("shadow");
+            $scope.titleBar.appendChild($scope.desc);
+            $scope.title.style.margin = "10px";
+            $scope.title.style.fontSize = "56px";
+            $scope.titleBar.classList.remove("shadow");
         }
 
         // any $scope variable updates

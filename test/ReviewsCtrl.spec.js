@@ -33,11 +33,11 @@ describe('Controller: ReviewsCtrl', function() {
         });
 
         it('Returns "gold" when place is equal to review rating', function() {
-            expect($scope.ratingGold(2)).toBe("gold");
+            expect($scope.ratingGold(3)).toBe("gold");
         });
 
-        it('Returns nothing when place is greater than review rating', function() {
-            expect($scope.ratingGold(2)).isNull;
+        it('Returns undefined when place is greater than review rating', function() {
+            expect($scope.ratingGold(4)).toBeUndefined();
         });
     });
 
@@ -45,10 +45,10 @@ describe('Controller: ReviewsCtrl', function() {
         beforeEach(inject(function($httpBackend, $http) {
             httpBackend = $httpBackend;
             http = $http;
-            $controller('ReviewsCtrl', {$scope: $scope, $http: http});
         }));
 
         it('Should reset all values on successful upload.', function() {
+            $controller('ReviewsCtrl', {$scope: $scope, $http: http});
             httpBackend.expectPOST('reviews/new').respond(200);
             httpBackend.expectGET('user/status').respond(200, {status:true});
             httpBackend.expectGET('user/status').respond(200, {status:true});
@@ -62,12 +62,14 @@ describe('Controller: ReviewsCtrl', function() {
             $scope.review.abv = 5;
             $scope.review.ibu = 50;
             $scope.review.servingType = 'growler';
+            spyOn(console, "log");
             $scope.submitReview();
             httpBackend.flush();
             expect($scope.review.beerName).toBe('');
         });
 
         it('Should log errors.', function() {
+            $controller('ReviewsCtrl', {$scope: $scope, $http: http});
             var errorMessage = "Error message.",
                 errorStatus = 400;
             spyOn(console, 'error');
@@ -81,31 +83,4 @@ describe('Controller: ReviewsCtrl', function() {
         });
     });
 
-    describe('titleSize', function() {
-
-        beforeEach(function() {
-            $controller('ReviewsCtrl', {$scope: $scope});
-        });
-
-        it('Should return "64px" if offset is greater than 64', function() {
-            var max_size = 128,
-                offset = 100;
-            var response = $scope.titleSize(max_size, offset);
-            expect(response).toBe("64px");
-        });
-
-        it('Should return max size if offset is 0', function() {
-            var max_size = 128,
-                offset = 0;
-            var response = $scope.titleSize(max_size, offset);
-            expect(response).toBe(max_size + "px");
-        });
-
-        it('Should return max size less offset if 64>offset>=max size', function() {
-            var max_size = 128,
-                offset = 32;
-            var response = $scope.titleSize(max_size, offset);
-            expect(response).toBe(max_size-offset + "px");
-        });
-    });
 });
