@@ -3,7 +3,7 @@
  */
 'use strict';
 
-describe('LogoutCtrl', function() {
+describe('Controller: LogoutCtrl', function() {
     beforeEach(module('beerJournalApp'));
 
     var httpBackend;
@@ -20,8 +20,8 @@ describe('LogoutCtrl', function() {
     it('Should redirect to / when logged out.', function() {
         httpBackend.expect('POST', 'user/logout').respond(200);
         httpBackend.expect('GET', 'user/status').respond(200, {status:true});
-        spyOn($location, 'path').and.callFake(function(args) {
-            return {search: function(arg) {return {replace: function(){}}}}
+        spyOn($location, 'path').and.callFake(function() {
+            return {search: function() {return {replace: function(){}}}}
         });
         httpBackend.flush();
         expect($location.path).toHaveBeenCalledWith('/');
