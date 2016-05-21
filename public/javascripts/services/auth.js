@@ -27,7 +27,7 @@ angular.module('beerJournalApp').factory('AuthService',
                     }
                 })
                     // handle error
-                    .error(function (data) {
+                    .error(function () {
                         user = false;
                     });
                 return callback;
@@ -49,7 +49,7 @@ angular.module('beerJournalApp').factory('AuthService',
                             deferred.reject();
                         }
                     })
-                    .error(function (data) {
+                    .error(function () {
                         user = false;
                         deferred.reject();
                     });
@@ -61,11 +61,11 @@ angular.module('beerJournalApp').factory('AuthService',
                 var deferred = $q.defer();
 
                 $http.get('user/logout')
-                    .success(function (data) {
+                    .success(function () {
                         user = false;
                         deferred.resolve();
                     })
-                    .error(function (data) {
+                    .error(function () {
                         user = false;
                         deferred.reject();
                     });
@@ -86,11 +86,11 @@ angular.module('beerJournalApp').factory('AuthService',
                         deferred.reject();
                     }
                 })
-                    .error (function (data) {
+                    .error (function () {
                     deferred.reject();
                 });
 
-                return deferred;
+                return deferred.promise;
             };
 
             // return available functions for use in the controllers
