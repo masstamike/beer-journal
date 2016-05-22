@@ -69,7 +69,8 @@ app.controller('AllReviewsCtrl', function($scope, $http) {
                 $scope.title.style.fontSize = "56px";
                 $scope.titleBar.classList.remove("shadow");
             }
-            if (document.getElementById('description') != undefined) {
+            if ($scope.titleBar.childElementCount != 0
+                && document.getElementById('description') != undefined) {
                 $scope.titleBar.removeChild($scope.desc);
             }
         } else {

@@ -118,6 +118,7 @@ describe('Controller: AllReviewsCtrl', function() {
     describe('window.onscroll', function() {
         var dummyNode, dummyNodeNested;
         beforeEach(function() {
+            httpBackend.when('GET', 'reviews/all').respond(200, [{sampled: 0}]);
             dummyNodeNested = document.createElement("div");
             dummyNode = document.createElement("div");
             dummyNode.appendChild(dummyNodeNested);
@@ -126,7 +127,6 @@ describe('Controller: AllReviewsCtrl', function() {
         });
 
         it('Should shrink title bar when scroll is >= 56', function() {
-            httpBackend.when('GET', 'reviews/all').respond(200, [{sampled: 0}]);
             spyOn($scope, 'getYOffset').and.returnValue(100);
             $scope.desc = dummyNodeNested;
             $scope.titleBar = dummyNode;
@@ -137,7 +137,6 @@ describe('Controller: AllReviewsCtrl', function() {
         });
 
         it('Should expand title bar when scroll is 32 <= x < 56', function() {
-            httpBackend.when('GET', 'reviews/all').respond(200, [{sampled: 0}]);
             spyOn($scope, 'getYOffset').and.returnValue(42);
             $scope.desc = dummyNodeNested;
             $scope.titleBar = dummyNode;
@@ -148,7 +147,6 @@ describe('Controller: AllReviewsCtrl', function() {
         });
 
         it('Should add description to title scroll < 32', function() {
-            httpBackend.when('GET', 'reviews/all').respond(200, [{sampled: 0}]);
             spyOn($scope, 'getYOffset').and.returnValue(31);
             $scope.desc = dummyNodeNested;
             $scope.titleBar = dummyNode;
@@ -156,6 +154,16 @@ describe('Controller: AllReviewsCtrl', function() {
             expect($scope.title.style.margin).toBe("10px");
             expect($scope.title.style.fontSize).toBe("56px");
             expect($scope.titleBar.classList.length).toBe(0);
+        });
+
+        it('Should remove description when title scroll >= 32', function() {
+            spyOn($scope, 'getYOffset').and.returnValue(32);
+            $scope.desc = dummyNodeNested;
+            $scope.titleBar = dummyNode;
+            expect($scope.titleBar.childElementCount).toBe(1);
+            window.onscroll();
+            window.onscroll();
+            expect($scope.titleBar.childElementCount).toBe(0);
         });
     });
 
