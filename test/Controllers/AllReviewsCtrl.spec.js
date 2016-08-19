@@ -74,6 +74,16 @@ describe('Controller: AllReviewsCtrl', function() {
         });
     });
 
+    describe('getMyReviews', function() {
+        it("Should load user's reviews onto page", function() {
+            var username = 'username1';
+            var reviews = [{beer:"beer1"}, {beer:"beer2"}];
+            httpBackend.when('GET', "reviews/" + username).respond(200, reviews);
+            $scope.getMyReviews();
+            expect($scope.reviews).toBe(reviews);
+        });
+    });
+
     describe('createReview switch', function() {
         it('Should initialize to false', function() {
             expect($scope.newReview).toBe(false);
