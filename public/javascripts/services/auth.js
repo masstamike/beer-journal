@@ -7,6 +7,7 @@ angular.module('beerJournalApp').factory('AuthService',
 
             // create user variable
             var user = null;
+            var user_handle = "";
 
             var isLoggedIn = function () {
                 if (user) {
@@ -16,19 +17,26 @@ angular.module('beerJournalApp').factory('AuthService',
                 }
             };
 
+            var getUsername = function () {
+                return user_handle;
+            };
+
             var getUserStatus = function () {
                 var callback = $http.get('user/status');
                 // handle success
                 callback.success(function (data) {
                     if(data.status){
                         user = true;
+                        user_handle = data.user;
                     } else {
                         user = false;
+                        user_handle = "";
                     }
                 })
                     // handle error
                     .error(function () {
                         user = false;
+                        user_handle = "";
                     });
                 return callback;
             };
@@ -43,14 +51,17 @@ angular.module('beerJournalApp').factory('AuthService',
                     .success(function (data, status) {
                         if(status === 200 && data.status){
                             user = true;
+                            user_handle = data.user;
                             deferred.resolve();
                         } else {
                             user = false;
+                            user_handle = "";
                             deferred.reject();
                         }
                     })
                     .error(function () {
                         user = false;
+                        user_handle = "";
                         deferred.reject();
                     });
 
@@ -63,10 +74,12 @@ angular.module('beerJournalApp').factory('AuthService',
                 $http.get('user/logout')
                     .success(function () {
                         user = false;
+                        user_handle = "";
                         deferred.resolve();
                     })
                     .error(function () {
                         user = false;
+                        user_handle = "";
                         deferred.reject();
                     });
                 return deferred.promise;
@@ -99,7 +112,8 @@ angular.module('beerJournalApp').factory('AuthService',
                 getUserStatus: getUserStatus,
                 login: login,
                 logout: logout,
-                register: register
+                register: register,
+                getUsername: getUsername
             });
 
         }]);

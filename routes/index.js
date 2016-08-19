@@ -73,7 +73,8 @@ router.post('/user/login', function(req, res, next) {
         });
       }
       res.status(200).json({
-        status: 'Login successful!'
+        status: 'Login successful!',
+        user: user.username
       });
     });
   })(req, res, next);
@@ -93,7 +94,8 @@ router.get('/user/status', function(req, res) {
     });
   }
   res.status(200).json({
-    status: true
+    status: true,
+    user: req.user.username
   });
 });
 
