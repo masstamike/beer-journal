@@ -4,7 +4,7 @@
 'use strict';
 
 var app = angular.module('beerJournalApp');
-app.controller('AllReviewsCtrl', function($scope, $http) {
+app.controller('AllReviewsCtrl', ['$scope', '$http', 'AuthService', 'user', function($scope, $http, AuthService, user) {
 
     $scope.reviews = [];
     $scope.newReview = false;
@@ -13,8 +13,12 @@ app.controller('AllReviewsCtrl', function($scope, $http) {
     $scope.title = document.getElementById('title');
     $scope.desc = document.getElementById('description');
 
-    $scope.getReviews = function () {
-        $http.get('reviews/all').then(function (reviews) {
+    $scope.getReviews = function() {
+        $scope.getSpecificReviews("all");
+    };
+    
+    $scope.getSpecificReviews = function (username) {
+        $http.get('reviews/' + username).then(function (reviews) {
             reviews = reviews.data.map(function (cur, index, arr) {
                 var sampledNice = new Date(arr[index].sampled);
                 arr[index].sampled = sampledNice.toDateString();
@@ -24,6 +28,11 @@ app.controller('AllReviewsCtrl', function($scope, $http) {
         }, function (err) {
             console.error(err.status);
         });
+    };
+
+    $scope.getMyReviews = function () {
+        var username = AuthService.getUsername();
+        $scope.getSpecificReviews(username);
     };
 
     $scope.getNumber = function (int) {
@@ -88,6 +97,10 @@ app.controller('AllReviewsCtrl', function($scope, $http) {
         window.onscroll = null;
     });
 
-    $scope.getReviews();
+    if (user == "self") {
+        $scope.getMyReviews()
+    } else {
+        $scope.getReviews();
+    }
 
-});
+}]);

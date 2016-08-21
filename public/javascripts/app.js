@@ -24,7 +24,12 @@ angular
             .when('/', {
                 templateUrl: 'views/all_reviews.html',
                 controller: 'AllReviewsCtrl',
-                access: {restricted: true}
+                access: {restricted: true},
+                resolve: {
+                    user: function() {
+                        return "all";
+                    }
+                }
             })
             .when('/login', {
                 templateUrl: 'views/login.html',
@@ -45,7 +50,23 @@ angular
             .when('/reviews', {
                 templateUrl: 'views/all_reviews.html',
                 controller: 'AllReviewsCtrl',
-                access: {restricted: false}
+                access: {restricted: false},
+                resolve: {
+                    user: function() {
+                        return "all";
+                    }
+                }
+            })
+            .when('/myReviews', {
+                templateUrl: 'views/all_reviews.html',
+                controller: 'AllReviewsCtrl',
+                access: {restricted: true},
+                resolve: {
+                    user: function() {
+                        return "self";
+                    }
+                    
+                }
             })
             .otherwise({
                 redirectTo: '/'

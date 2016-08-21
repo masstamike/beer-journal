@@ -126,4 +126,14 @@ router.get('/reviews/all', function (req, res) {
   });
 });
 
+router.get('/reviews/:username', function(req, res) {
+  console.log(req);
+  Review.find({"username": req.params.username}).exec(function(err, results) {
+    if (err) {
+      console.log(err);
+    }
+    res.json(results);
+  });
+});
+
 module.exports = router;
