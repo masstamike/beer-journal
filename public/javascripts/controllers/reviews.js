@@ -61,4 +61,6 @@ app.controller('ReviewsCtrl', function($scope, $http) {
             });
     };
 
+    var myDropzone = new Dropzone("div#beerImage", { url: "/file/post"});
+
 });

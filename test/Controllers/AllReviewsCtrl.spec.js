@@ -13,7 +13,7 @@ describe('Controller: AllReviewsCtrl', function() {
         $scope = _$rootScope_.$new();
         httpBackend = $httpBackend;
         http = $http;
-        $controller('AllReviewsCtrl', {$scope: $scope, $http: http});
+        $controller('AllReviewsCtrl', {$scope: $scope, $http: http, user: "all"});
     }));
 
     it('Should initialize newReview to false', function() {
@@ -74,16 +74,6 @@ describe('Controller: AllReviewsCtrl', function() {
         });
     });
 
-    describe('getMyReviews', function() {
-        it("Should load user's reviews onto page", function() {
-            var username = 'username1';
-            var reviews = [{beer:"beer1"}, {beer:"beer2"}];
-            httpBackend.when('GET', "reviews/" + username).respond(200, reviews);
-            $scope.getMyReviews();
-            expect($scope.reviews).toBe(reviews);
-        });
-    });
-
     describe('createReview switch', function() {
         it('Should initialize to false', function() {
             expect($scope.newReview).toBe(false);
@@ -133,7 +123,7 @@ describe('Controller: AllReviewsCtrl', function() {
             dummyNode = document.createElement("div");
             dummyNode.appendChild(dummyNodeNested);
             spyOn(document, 'getElementById').and.returnValue(dummyNode);
-            $controller('AllReviewsCtrl', {$scope: $scope, $http: http, window: window});
+            $controller('AllReviewsCtrl', {$scope: $scope, $http: http, window: window, user: "all"});
         });
 
         it('Should shrink title bar when scroll is >= 56', function() {

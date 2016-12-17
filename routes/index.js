@@ -6,17 +6,31 @@
 
 var express   = require('express');
 var passport  = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
+var LocalStrategy = require('passport-google-oauth').Strategy;
 var router    = express.Router();
 
 // Grab the model
 var Review = require ('../models/review.js');
 var User   = require ('../models/user.js');
 
+// Credentials
+var GOOGLE_CLIENT_ID = '398387878399-g48v5q25a6jtufp9q5juer08s5t81bms.apps.googleusercontent.com';
+var GOOGLE_CLIENT_SECRET = '3zIvxVSp2e9Sw5MWXwSandZG';
+
 // Define title bar arguments
 var titleBar = {title: 'The Beer Journal', description: 'A collaborative place for beer enthusiasts.'};
 
-passport.use(new LocalStrategy(User.authenticate()));
+passport.use(new LocalStrategy({
+        clientID:     GOOGLE_CLIENT_ID,
+        clientSecret: GOOGLE_CLIENT_SECRET,
+        callbackURL: "http://localhost/auth/google/callback",
+        passReqToCallback   : true
+    },
+    function(request, accessToken, refreshToken, profile, done) {
+        User.findOrCreate({ googleId: profile.id }, function (err, user) {
+            return done(err, user);
+        });
+    }));
 
 passport.serializeUser(function(user, cb) {
   cb(null, user.id);
@@ -48,7 +62,7 @@ router.post('/user/register', function(req, res) {
           });
         }
 
-        passport.authenticate('local')(req, res, function() {
+        passport.authenticate('passport-google-oauth')(req, res, function() {
           return res.status(200).json({
             status: 'Registration successful!'
           });
@@ -57,7 +71,7 @@ router.post('/user/register', function(req, res) {
 });
 
 router.post('/user/login', function(req, res, next) {
-  passport.authenticate('local', function(err, user, info) {
+  passport.authenticate('passport-google-oauth', function(err, user, info) {
     if (err) {
       return next(err);
     }
