@@ -7,13 +7,17 @@ describe('Controller: AllReviewsCtrl', function() {
     var $scope;
     var httpBackend;
     var http;
+    var deferred;
 
-    beforeEach(inject(function(_$controller_, $httpBackend, $http, _$rootScope_){
+    beforeEach(inject(function(_$controller_, $httpBackend, _$q_, $http, _$rootScope_, AuthService){
         $controller = _$controller_;
         $scope = _$rootScope_.$new();
         httpBackend = $httpBackend;
         http = $http;
-        $controller('AllReviewsCtrl', {$scope: $scope, $http: http});
+
+        deferred = _$q_.defer();
+        spyOn(AuthService, 'getUsername').and.returnValue("username1");
+        $controller('AllReviewsCtrl', {$scope: $scope, $http: http, user: "not-self"});
     }));
 
     it('Should initialize newReview to false', function() {
@@ -77,10 +81,17 @@ describe('Controller: AllReviewsCtrl', function() {
     describe('getMyReviews', function() {
         it("Should load user's reviews onto page", function() {
             var username = 'username1';
-            var reviews = [{beer:"beer1"}, {beer:"beer2"}];
+            var currTime = new Date().toDateString();
+            var reviews = [{beer:"beer1", sampled: currTime},
+            {beer:"beer2", sampled: currTime}];
+
+            httpBackend.when('GET', "views/all_reviews.html").respond(200, []);
+            httpBackend.when('GET', "reviews/all").respond(200, []);
+            httpBackend.when('GET', 'user/status').respond(200, {status:true});
             httpBackend.when('GET', "reviews/" + username).respond(200, reviews);
             $scope.getMyReviews();
-            expect($scope.reviews).toBe(reviews);
+            httpBackend.flush();
+            expect($scope.reviews).toEqual(reviews);
         });
     });
 
@@ -133,7 +144,7 @@ describe('Controller: AllReviewsCtrl', function() {
             dummyNode = document.createElement("div");
             dummyNode.appendChild(dummyNodeNested);
             spyOn(document, 'getElementById').and.returnValue(dummyNode);
-            $controller('AllReviewsCtrl', {$scope: $scope, $http: http, window: window});
+            $controller('AllReviewsCtrl', {$scope: $scope, $http: http, window: window, user: "not-self"});
         });
 
         it('Should shrink title bar when scroll is >= 56', function() {

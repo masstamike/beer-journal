@@ -21,7 +21,8 @@ describe('Controller: LogoutCtrl', function() {
         httpBackend.expect('POST', 'user/logout').respond(200);
         httpBackend.expect('GET', 'user/status').respond(200, {status:true});
         spyOn($location, 'path').and.callFake(function() {
-            return {search: function() {return {replace: function(){}}}}
+            var search = function () {return {replace: function(){}}};
+            return {search:search};
         });
         httpBackend.flush();
         expect($location.path).toHaveBeenCalledWith('/');
