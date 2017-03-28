@@ -6,7 +6,8 @@
 
 var express   = require('express');
 var passport  = require('passport');
-var LocalStrategy = require('passport-google-oauth').Strategy;
+// var LocalStrategy = require('passport-google-oauth').Strategy;
+var GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
 var router    = express.Router();
 
 // Grab the model
@@ -20,27 +21,26 @@ var GOOGLE_CLIENT_SECRET = '3zIvxVSp2e9Sw5MWXwSandZG';
 // Define title bar arguments
 var titleBar = {title: 'The Beer Journal', description: 'A collaborative place for beer enthusiasts.'};
 
-passport.use(new LocalStrategy({
-        clientID:     GOOGLE_CLIENT_ID,
-        clientSecret: GOOGLE_CLIENT_SECRET,
-        callbackURL: "http://localhost/auth/google/callback",
-        passReqToCallback   : true
-    },
-    function(request, accessToken, refreshToken, profile, done) {
-        User.findOrCreate({ googleId: profile.id }, function (err, user) {
-            return done(err, user);
-        });
-    }));
+passport.use(new GoogleStrategy({
+    clientID:     GOOGLE_CLIENT_ID,
+    clientSecret: GOOGLE_CLIENT_SECRET,
+    callbackURL: "http://localhost:8080/auth/google/callback",
+    passReqToCallback   : true
+  }, function(request, accessToken, refreshToken, profile, done) {
+    console.log(profile.name);
+    done(undefined, {googleId: profile.id});
+  }));
 
 passport.serializeUser(function(user, cb) {
-  cb(null, user.id);
+  cb(null, user);
 });
 
-passport.deserializeUser(function(id, cb) {
-  User.findById(id, function (err, user) {
-    if (err) { return cb(err); }
-    cb(null, user);
-  });
+passport.deserializeUser(function(user, cb) {
+  cb(null, user);
+  // User.findById(id, function (err, user) {
+  //   if (err) { return cb(err); }
+  //   cb(null, user);
+  // });
 });
 
 /* GET home page. */
@@ -51,6 +51,26 @@ router.get('/', function(req, res, next) {
   }
   titleBar.username = username;
   res.render('index', titleBar);
+});
+
+router.get('/auth/google',
+  passport.authenticate('google', { scope:
+    [ 'https://www.googleapis.com/auth/plus.login',
+      'https://www.googleapis.com/auth/plus.profile.emails.read' ] }
+  ));
+
+router.get('/auth/google/callback',
+  passport.authenticate( 'google', {
+    successRedirect: '/auth/google/success',
+    failureRedirect: '/auth/google/failure'
+  }));
+
+router.get('/auth/google/success', function(req, res) {
+  res.send('success!');
+});
+
+router.get('/auth/google/failure', function(req, res) {
+  res.send('failure!');
 });
 
 router.post('/user/register', function(req, res) {
