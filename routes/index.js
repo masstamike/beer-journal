@@ -6,17 +6,20 @@
 
 var express   = require('express');
 var passport  = require('passport');
-// var LocalStrategy = require('passport-google-oauth').Strategy;
 var GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
 var router    = express.Router();
 
-// Grab the model
+// Grab the models
 var Review = require ('../models/review.js');
 var User   = require ('../models/user.js');
 
+// Load Secrets
+var SECRETS = require('../helpers/secrets.json');
+
 // Credentials
-var GOOGLE_CLIENT_ID = '398387878399-g48v5q25a6jtufp9q5juer08s5t81bms.apps.googleusercontent.com';
-var GOOGLE_CLIENT_SECRET = '3zIvxVSp2e9Sw5MWXwSandZG';
+var GOOGLE_CLIENT_ID = SECRETS.GOOGLE_CLIENT_ID;
+var GOOGLE_CLIENT_SECRET = SECRETS.GOOGLE_CLIENT_SECRET;
+var GOOGLE_CLIENT_CALLBACK_URL = SECRETS.GOOGLE_CLIENT_CALLBACK_URL;
 
 // Define title bar arguments
 var titleBar = {title: 'The Beer Journal', description: 'A collaborative place for beer enthusiasts.'};
@@ -24,7 +27,7 @@ var titleBar = {title: 'The Beer Journal', description: 'A collaborative place f
 passport.use(new GoogleStrategy({
     clientID:     GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:8080/auth/google/callback",
+    callbackURL: GOOGLE_CLIENT_CALLBACK_URL,
     passReqToCallback   : true
   }, function(request, accessToken, refreshToken, profile, done) {
     console.log(profile.name);
