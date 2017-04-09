@@ -17,9 +17,9 @@ var User   = require ('../models/user.js');
 var SECRETS = require('../helpers/secrets.json');
 
 // Credentials
-var GOOGLE_CLIENT_ID = SECRETS.GOOGLE_CLIENT_ID;
-var GOOGLE_CLIENT_SECRET = SECRETS.GOOGLE_CLIENT_SECRET;
-var GOOGLE_CLIENT_CALLBACK_URL = SECRETS.GOOGLE_CLIENT_CALLBACK_URL;
+var GOOGLE_CLIENT_ID            = SECRETS.GOOGLE_CLIENT_ID;
+var GOOGLE_CLIENT_SECRET        = SECRETS.GOOGLE_CLIENT_SECRET;
+var GOOGLE_CLIENT_CALLBACK_URL  = SECRETS.GOOGLE_CLIENT_CALLBACK_URL;
 
 // Define title bar arguments
 var titleBar = {title: 'The Beer Journal', description: 'A collaborative place for beer enthusiasts.'};
@@ -27,7 +27,7 @@ var titleBar = {title: 'The Beer Journal', description: 'A collaborative place f
 passport.use(new GoogleStrategy({
     clientID:     GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
-    callbackURL: GOOGLE_CLIENT_CALLBACK_URL,
+    callbackURL:  GOOGLE_CLIENT_CALLBACK_URL,
     passReqToCallback   : true
   }, function(request, accessToken, refreshToken, profile, done) {
     console.log(profile.name);
