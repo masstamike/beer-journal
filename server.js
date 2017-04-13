@@ -6,11 +6,13 @@ var cookieParser  = require('cookie-parser');
 var bodyParser    = require('body-parser');
 var mongoose      = require('mongoose');
 var session       = require('express-session');
+var MongoStore    = require('connect-mongo') (session);
 var passport      = require('passport');
+
 mongoose.connect('mongodb://localhost/beer-journal');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+var routes  = require('./routes/index');
+var users   = require('./routes/users');
 
 var SECRETS = require('./helpers/secrets.json');
 
@@ -31,7 +33,8 @@ app.use(session({
   secret: SECRETS.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: true }
+  cookie: { secure: true },
+  store: new MongoStore({mongooseConnection: mongoose.connection})
 }));
 app.use(passport.initialize());
 app.use(passport.session());
