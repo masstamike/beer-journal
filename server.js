@@ -33,7 +33,7 @@ app.use(session({
   secret: SECRETS.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: true },
+  cookie: { secure: false },
   store: new MongoStore({mongooseConnection: mongoose.connection})
 }));
 app.use(passport.initialize());

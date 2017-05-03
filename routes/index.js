@@ -30,8 +30,16 @@ passport.use(new GoogleStrategy({
     callbackURL:  GOOGLE_CLIENT_CALLBACK_URL,
     passReqToCallback   : true
   }, function(request, accessToken, refreshToken, profile, done) {
-    console.log(profile.name);
-    done(undefined, {googleId: profile.id});
+    var user = new User({
+        user_id: profile.id,
+        email: profile.email,
+        firstName: profile.name.givenName,
+        lastName: profile.name.familyName,
+        imageUrl: profile.photos[0].value
+    });
+
+    user.save();
+    done(undefined, user);
   }));
 
 passport.serializeUser(function(user, cb) {
@@ -39,11 +47,10 @@ passport.serializeUser(function(user, cb) {
 });
 
 passport.deserializeUser(function(user, cb) {
-  cb(null, user);
-  // User.findById(id, function (err, user) {
-  //   if (err) { return cb(err); }
-  //   cb(null, user);
-  // });
+  User.findOne({'user_id': user.id}, function (err, user) {
+    if (err) { return cb(err); }
+    cb(null, user);
+  });
 });
 
 /* GET home page. */
@@ -64,7 +71,8 @@ router.get('/auth/google',
 
 router.get('/auth/google/callback',
   passport.authenticate( 'google', {
-    successRedirect: '/auth/google/success',
+    // successRedirect: '/auth/google/success',
+    successRedirect: '/',
     failureRedirect: '/auth/google/failure'
   }));
 
@@ -132,7 +140,7 @@ router.get('/user/status', function(req, res) {
   }
   res.status(200).json({
     status: true,
-    user: req.user.username
+    user: req.user.email
   });
 });
 
@@ -164,7 +172,6 @@ router.get('/reviews/all', function (req, res) {
 });
 
 router.get('/reviews/:username', function(req, res) {
-  console.log(req);
   Review.find({"username": req.params.username}).exec(function(err, results) {
     if (err) {
       console.log(err);
