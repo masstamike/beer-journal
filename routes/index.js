@@ -57,7 +57,7 @@ passport.deserializeUser(function(user, cb) {
 router.get('/', function(req, res, next) {
   var username = "anonymous";
   if (req.user) {
-      username = req.user.username;
+      username = req.user.firstName;
   }
   titleBar.username = username;
   res.render('index', titleBar);
@@ -145,8 +145,9 @@ router.get('/user/status', function(req, res) {
 });
 
 router.post('/reviews/new', function (req, res) {
+  console.log(req.user._id)
   var review = new Review ({
-    username    : req.user.username,
+    username    : req.user._id,
     beer        : req.body.beerName,
     brewer      : req.body.brewer,
     price       : req.body.price,
