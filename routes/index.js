@@ -145,9 +145,10 @@ router.get('/user/status', function(req, res) {
 });
 
 router.post('/reviews/new', function (req, res) {
-  console.log(req.user._id)
   var review = new Review ({
-    username    : req.user._id,
+    username    : req.user.email,
+    userFirst   : req.user.firstName,
+    userLast    : req.user.lastName,
     beer        : req.body.beerName,
     brewer      : req.body.brewer,
     price       : req.body.price,
