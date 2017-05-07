@@ -27,7 +27,7 @@ angular.module('beerJournalApp').factory('AuthService',
                 callback.then(function (data) {
                     if(data.data.status){
                         user = true;
-                        user_handle = data.user;
+                        user_handle = data.data.user;
                     } else {
                         user = false;
                         user_handle = "";
@@ -40,33 +40,6 @@ angular.module('beerJournalApp').factory('AuthService',
                     user_handle = "";
                 });
                 return callback;
-            };
-
-            var login = function (username, password) {
-
-                var deferred = $q.defer();
-
-                $http.post('user/login',
-                    {username: username, password: password})
-                    // handle success
-                    .then(function (data, status) {
-                        if(status === 200 && data.status){
-                            user = true;
-                            user_handle = data.user;
-                            deferred.resolve();
-                        } else {
-                            user = false;
-                            user_handle = "";
-                            deferred.reject();
-                        }
-                    },
-                    function () {
-                        user = false;
-                        user_handle = "";
-                        deferred.reject();
-                    });
-
-                return deferred.promise;
             };
 
             var logout = function () {
@@ -86,33 +59,11 @@ angular.module('beerJournalApp').factory('AuthService',
                 return deferred.promise;
             };
 
-            var register = function (username, password) {
-                var deferred = $q.defer();
-
-                $http.post('user/register', {
-                    username: username,
-                    password: password
-                }).then(function (data, status) {
-                    if (status == 200 && data.status) {
-                        deferred.resolve();
-                    } else {
-                        deferred.reject();
-                    }
-                },
-                function () {
-                    deferred.reject();
-                });
-
-                return deferred.promise;
-            };
-
             // return available functions for use in the controllers
             return ({
                 isLoggedIn: isLoggedIn,
                 getUserStatus: getUserStatus,
-                login: login,
                 logout: logout,
-                register: register,
                 getUsername: getUsername
             });
 

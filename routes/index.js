@@ -57,7 +57,7 @@ passport.deserializeUser(function(user, cb) {
 router.get('/', function(req, res, next) {
   var username = "anonymous";
   if (req.user) {
-      username = req.user.firstName;
+      username = req.user.firstName + ' ' + req.user.lastName;
   }
   titleBar.username = username;
   res.render('index', titleBar);
