@@ -47,7 +47,7 @@ passport.serializeUser(function(user, cb) {
 });
 
 passport.deserializeUser(function(user, cb) {
-  User.findOne({'user_id': user.id}, function (err, user) {
+  User.findOne({'user_id': user.user_id}, function (err, user) {
     if (err) { return cb(err); }
     cb(null, user);
   });
@@ -71,7 +71,6 @@ router.get('/auth/google',
 
 router.get('/auth/google/callback',
   passport.authenticate( 'google', {
-    // successRedirect: '/auth/google/success',
     successRedirect: '/',
     failureRedirect: '/auth/google/failure'
   }));
