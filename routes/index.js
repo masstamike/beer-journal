@@ -6,24 +6,48 @@
 
 var express   = require('express');
 var passport  = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
+var GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
 var router    = express.Router();
 
-// Grab the model
+// Grab the models
 var Review = require ('../models/review.js');
 var User   = require ('../models/user.js');
+
+// Load Secrets
+var SECRETS = require('../helpers/secrets.json');
+
+// Credentials
+var GOOGLE_CLIENT_ID            = SECRETS.GOOGLE_CLIENT_ID;
+var GOOGLE_CLIENT_SECRET        = SECRETS.GOOGLE_CLIENT_SECRET;
+var GOOGLE_CLIENT_CALLBACK_URL  = SECRETS.GOOGLE_CLIENT_CALLBACK_URL;
 
 // Define title bar arguments
 var titleBar = {title: 'The Beer Journal', description: 'A collaborative place for beer enthusiasts.'};
 
-passport.use(new LocalStrategy(User.authenticate()));
+passport.use(new GoogleStrategy({
+    clientID:     GOOGLE_CLIENT_ID,
+    clientSecret: GOOGLE_CLIENT_SECRET,
+    callbackURL:  GOOGLE_CLIENT_CALLBACK_URL,
+    passReqToCallback   : true
+  }, function(request, accessToken, refreshToken, profile, done) {
+    var user = new User({
+        user_id: profile.id,
+        email: profile.email,
+        firstName: profile.name.givenName,
+        lastName: profile.name.familyName,
+        imageUrl: profile.photos[0].value
+    });
+
+    user.save();
+    done(undefined, user);
+  }));
 
 passport.serializeUser(function(user, cb) {
-  cb(null, user.id);
+  cb(null, user);
 });
 
-passport.deserializeUser(function(id, cb) {
-  User.findById(id, function (err, user) {
+passport.deserializeUser(function(user, cb) {
+  User.findOne({'user_id': user.user_id}, function (err, user) {
     if (err) { return cb(err); }
     cb(null, user);
   });
@@ -33,10 +57,30 @@ passport.deserializeUser(function(id, cb) {
 router.get('/', function(req, res, next) {
   var username = "anonymous";
   if (req.user) {
-      username = req.user.username;
+      username = req.user.firstName + ' ' + req.user.lastName;
   }
   titleBar.username = username;
   res.render('index', titleBar);
+});
+
+router.get('/auth/google',
+  passport.authenticate('google', { scope:
+    [ 'https://www.googleapis.com/auth/plus.login',
+      'https://www.googleapis.com/auth/plus.profile.emails.read' ] }
+  ));
+
+router.get('/auth/google/callback',
+  passport.authenticate( 'google', {
+    successRedirect: '/',
+    failureRedirect: '/auth/google/failure'
+  }));
+
+router.get('/auth/google/success', function(req, res) {
+  res.send('success!');
+});
+
+router.get('/auth/google/failure', function(req, res) {
+  res.send('failure!');
 });
 
 router.post('/user/register', function(req, res) {
@@ -48,7 +92,7 @@ router.post('/user/register', function(req, res) {
           });
         }
 
-        passport.authenticate('local')(req, res, function() {
+        passport.authenticate('passport-google-oauth')(req, res, function() {
           return res.status(200).json({
             status: 'Registration successful!'
           });
@@ -57,7 +101,7 @@ router.post('/user/register', function(req, res) {
 });
 
 router.post('/user/login', function(req, res, next) {
-  passport.authenticate('local', function(err, user, info) {
+  passport.authenticate('passport-google-oauth', function(err, user, info) {
     if (err) {
       return next(err);
     }
@@ -95,13 +139,15 @@ router.get('/user/status', function(req, res) {
   }
   res.status(200).json({
     status: true,
-    user: req.user.username
+    user: req.user.email
   });
 });
 
 router.post('/reviews/new', function (req, res) {
   var review = new Review ({
-    username    : req.user.username,
+    username    : req.user.email,
+    userFirst   : req.user.firstName,
+    userLast    : req.user.lastName,
     beer        : req.body.beerName,
     brewer      : req.body.brewer,
     price       : req.body.price,
@@ -127,7 +173,6 @@ router.get('/reviews/all', function (req, res) {
 });
 
 router.get('/reviews/:username', function(req, res) {
-  console.log(req);
   Review.find({"username": req.params.username}).exec(function(err, results) {
     if (err) {
       console.log(err);

@@ -60,5 +60,4 @@ app.controller('ReviewsCtrl', function($scope, $http) {
                 console.error("Error " + error.status + ": " + error.data);
             });
     };
-
 });

@@ -79,7 +79,10 @@ angular
                     if (next.access && next.access.restricted && AuthService.isLoggedIn() === false) {
                         $location.path('/login');
                         $route.reload();
-                    }});
+                    }},
+                function(err) {
+                    console.log(err);
+                });
             });
     });
 

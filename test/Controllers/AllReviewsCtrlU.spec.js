@@ -14,10 +14,7 @@ describe('Controller: AllReviewsCtrl', function() {
         $scope = _$rootScope_.$new();
         httpBackend = $httpBackend;
         http = $http;
-
-        deferred = _$q_.defer();
-        spyOn(AuthService, 'getUsername').and.returnValue("username1");
-        $controller('AllReviewsCtrl', {$scope: $scope, $http: http, user: "not-self"});
+        $controller('AllReviewsCtrl', {$scope: $scope, $http: http, user: "all"});
     }));
 
     it('Should initialize newReview to false', function() {
@@ -78,23 +75,6 @@ describe('Controller: AllReviewsCtrl', function() {
         });
     });
 
-    describe('getMyReviews', function() {
-        it("Should load user's reviews onto page", function() {
-            var username = 'username1';
-            var currTime = new Date().toDateString();
-            var reviews = [{beer:"beer1", sampled: currTime},
-            {beer:"beer2", sampled: currTime}];
-
-            httpBackend.when('GET', "views/all_reviews.html").respond(200, []);
-            httpBackend.when('GET', "reviews/all").respond(200, []);
-            httpBackend.when('GET', 'user/status').respond(200, {status:true});
-            httpBackend.when('GET', "reviews/" + username).respond(200, reviews);
-            $scope.getMyReviews();
-            httpBackend.flush();
-            expect($scope.reviews).toEqual(reviews);
-        });
-    });
-
     describe('createReview switch', function() {
         it('Should initialize to false', function() {
             expect($scope.newReview).toBe(false);
@@ -144,7 +124,7 @@ describe('Controller: AllReviewsCtrl', function() {
             dummyNode = document.createElement("div");
             dummyNode.appendChild(dummyNodeNested);
             spyOn(document, 'getElementById').and.returnValue(dummyNode);
-            $controller('AllReviewsCtrl', {$scope: $scope, $http: http, window: window, user: "not-self"});
+            $controller('AllReviewsCtrl', {$scope: $scope, $http: http, window: window, user: "all"});
         });
 
         it('Should shrink title bar when scroll is >= 56', function() {

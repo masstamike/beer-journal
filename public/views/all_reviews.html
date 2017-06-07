@@ -51,7 +51,8 @@
                         Growler <span ng-show="review.servingType == 'growler'">✓</span><br/>
                     </div>
                     <div class="username">
-                        ~{{review.username}}
+                        <span style="color: #000;">Reviewed by:</span><br/>
+                        {{review.userFirst}} {{review.userLast}}
                     </div>
                 </div>
             </div>
