@@ -115,6 +115,15 @@ input.underline {
   background-color: #e5e5e5;
 }
 
+.sidebar > .menuItem > a {
+  font-size: 28px;
+  color: #2196F3;
+}
+
+.sidebar > .menuItem > a:hover {
+  color: #0064B3;
+}
+
 #reviews {
   margin-left: 256px;
   float:left;
