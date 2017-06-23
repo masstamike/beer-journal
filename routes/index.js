@@ -43,7 +43,7 @@ passport.use(new GoogleStrategy({
   }));
 
 passport.serializeUser(function(user, cb) {
-  cb(null, user);
+  cb(null, user.user_id);
 });
 
 passport.deserializeUser(function(user, cb) {
@@ -136,11 +136,12 @@ router.get('/user/status', function(req, res) {
     return res.status(200).json({
       status: false
     });
+  } else {
+    res.status(200).json({
+      status: true,
+      user: req.user.email
+    });
   }
-  res.status(200).json({
-    status: true,
-    user: req.user.email
-  });
 });
 
 router.post('/reviews/new', function (req, res) {
