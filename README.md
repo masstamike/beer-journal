@@ -27,3 +27,6 @@ Reviews:
   * Follow people
     * See their reviews.
     * Keep track of how many you are following/followed by
+    
+# Mongo Migration Requirements
+* `npm install -g migrate-mongo`

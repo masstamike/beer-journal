@@ -20,6 +20,7 @@ var SECRETS = require('../helpers/secrets.json');
 var GOOGLE_CLIENT_ID            = SECRETS.GOOGLE_CLIENT_ID;
 var GOOGLE_CLIENT_SECRET        = SECRETS.GOOGLE_CLIENT_SECRET;
 var GOOGLE_CLIENT_CALLBACK_URL  = SECRETS.GOOGLE_CLIENT_CALLBACK_URL;
+var AUTH_REDIRECT_URL           = SECRETS.AUTH_REDIRECT_URL;
 
 // Define title bar arguments
 var titleBar = {title: 'The Beer Journal', description: 'A collaborative place for beer enthusiasts.'};
@@ -71,7 +72,7 @@ router.get('/auth/google',
 
 router.get('/auth/google/callback',
   passport.authenticate( 'google', {
-    successRedirect: '/',
+    successRedirect: AUTH_REDIRECT_URL,
     failureRedirect: '/auth/google/failure'
   }));
 
